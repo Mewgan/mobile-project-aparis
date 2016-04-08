@@ -9760,6 +9760,8 @@ a.button {
     display: table-cell;
     vertical-align: middle;
     text-align: center; }
+  .home .scroll-bar-indicator {
+    display: none; }
   .home h1 img {
     width: 70%; }
   .home a {
@@ -9774,3 +9776,8 @@ a.button {
     padding: 20px 0px; }
   .home .button {
     width: 50%; }
+  .home .menu-left {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2.5em; }

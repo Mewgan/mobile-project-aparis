@@ -1,7 +1,21 @@
-<ion-side-menus>
+<ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
-
         <ion-nav-view name="home" animation="slide-left-right"></ion-nav-view>
-
     </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+        <ion-content>
+            <ion-list>
+                <ion-item menu-close ng-click="#/app/index">
+                    Accueil
+                </ion-item>
+                <ion-item menu-close href="#/app/actus">
+                    Actualités
+                </ion-item>
+                <ion-item menu-close href="#/app/favoris">
+                    Favoris
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
 </ion-side-menus>

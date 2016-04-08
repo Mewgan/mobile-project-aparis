@@ -52,6 +52,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     vertical-align: middle;
     text-align: center;
   }
+  .scroll-bar-indicator
+  {
+    display: none;
+  }
   h1{
     img{
       width: 70%;
@@ -72,5 +76,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   }
   .button{
     width: 50%;
+  }
+  .menu-left{
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 2.5em;
   }
 }
