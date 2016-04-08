@@ -9730,3 +9730,47 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/OpenSans-Regular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url("../fonts/OpenSans-Light.ttf") format("truetype"); }
+
+@font-face {
+  font-family: 'Open Sans Italic';
+  src: url("../fonts/OpenSans-LightItalic.ttf") format("truetype"); }
+
+.home {
+  font-family: 'Open Sans','arial';
+  background: url("../img/paris-tour-eiffel-nuit-resize.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  text-align: center;
+  color: white; }
+  .home .scroll-content {
+    background-color: rgba(0, 0, 0, 0.4);
+    display: table !important;
+    width: 100% !important;
+    height: 100% !important; }
+  .home .scroll {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center; }
+  .home h1 img {
+    width: 70%; }
+  .home a {
+    font-family: 'Open Sans Italic';
+    color: white;
+    text-decoration: none;
+    font-size: 20px; }
+  .home .around-me .col {
+    border-bottom: 1px solid white;
+    padding: 20px 0px; }
+  .home .search .col {
+    padding: 20px 0px; }
+  .home .button {
+    width: 50%; }
