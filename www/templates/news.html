@@ -1,0 +1,15 @@
+<ion-view view-title="Actualités"  class="app news" hide-nav-bar="true">
+    <ion-content overflow-scroll="false">
+        <div ng-show="news.length == 0" class="card ng-hide">
+            <div style="text-align:center;" class="item item-text-wrap">
+                Pas de résultat trouvé <i class="icon ion-sad-outline"></i>
+            </div>
+        </div>
+        <div class="card" ng-repeat="new in news">
+            <a class="item item-text-wrap">
+                <h2 ng-bind-html="(new.nom | html_entity_decode)"></h2>
+                <p ng-bind-html="(new.small_description | html_entity_decode)"></p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
