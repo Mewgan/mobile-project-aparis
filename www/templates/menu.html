@@ -1,4 +1,4 @@
-<ion-side-menus enable-menu-with-back-views="false">
+<ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
 
         <ion-tabs class="tabs-striped tabs-top tabs-background-none tabs-color-light">
@@ -22,13 +22,13 @@
     <ion-side-menu side="left">
         <ion-content>
             <ion-list>
-                <ion-item menu-close ng-href="#/app/index">
+                <ion-item menu-close ui-sref="app.home">
                     Accueil
                 </ion-item>
-                <ion-item menu-close ng-href="#/app/actus">
+                <ion-item menu-close ui-sref="app.news">
                     Actualités
                 </ion-item>
-                <ion-item menu-close ng-href="#/app/favoris">
+                <ion-item menu-close ui-sref="app.favorite">
                     Favoris
                 </ion-item>
             </ion-list>

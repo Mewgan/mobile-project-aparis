@@ -1,15 +1,28 @@
 <ion-view view-title="Actualités"  class="app news" hide-nav-bar="true">
     <ion-content overflow-scroll="false">
-        <div ng-show="news.length == 0" class="card ng-hide">
-            <div style="text-align:center;" class="item item-text-wrap">
-                Pas de résultat trouvé <i class="icon ion-sad-outline"></i>
+        <div class="row row-top">
+            <div class="col">
+                <div class="list">
+                    <label class="item item-input item-select">
+                        <div class="input-label">Catégories</div>
+                        <select ng-model="cat" ng-change="changeCat(cat)">
+                            <option value="0" selected>Tout</option>
+                            <option ng-repeat="cat in categories" ng-bind-html="(cat.name | html_entity_decode)">{{cat.id}}</option>
+                        </select>
+                    </label>
+                </div>
             </div>
         </div>
-        <div class="card" ng-repeat="new in news">
-            <a class="item item-text-wrap">
-                <h2 ng-bind-html="(new.nom | html_entity_decode)"></h2>
-                <p ng-bind-html="(new.small_description | html_entity_decode)"></p>
-            </a>
-        </div>
+        <ion-list class="news-list">
+            <div class="card" ng-repeat="news in allNews" ng-click="renderNews(news.idactivites)">
+                <div class="item item-text-wrap">
+                    <h2 ng-bind-html="(news.nom | html_entity_decode)"></h2>
+                    <p ng-bind-html="(news.small_description | html_entity_decode)"></p>
+                </div>
+            </div>
+        </ion-list>
+        <ion-spinner ng-hide="allNews.length == 0"></ion-spinner>
+        <ion-infinite-scroll on-infinite="load()" distance="1%"></ion-infinite-scroll>
     </ion-content>
+    <button ng-hide="allNews.length <= 20" ng-click="scrollTop()" class="icon ion-arrow-up-c"></button>
 </ion-view>

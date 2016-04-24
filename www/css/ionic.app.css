@@ -9748,18 +9748,22 @@ a.button {
   background-image: none;
   border: none; }
 
+.popup-container.active .popup {
+  background: #343434; }
+  .popup-container.active .popup .popup-head h3 {
+    color: white; }
+
 body {
   font-family: 'Open Sans','arial';
   text-align: center;
-  color: white;
-  /*.has-tabs-top{
-    top: 0 !important;
-  }*/ }
+  color: white; }
   body .view-container {
     background: url("../img/paris-tour-eiffel-nuit-resize.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover; }
+  body .has-tabs-top {
+    top: 70px !important; }
   body .home {
     /*background: #87CEFA;*/
     background-color: rgba(0, 0, 0, 0.6); }
@@ -9793,8 +9797,18 @@ body {
       left: 20px;
       font-size: 2.5em; }
   body .news {
-    /* background: #FF6347;*/
-    background-color: rgba(0, 0, 0, 0.6); }
+    background: #2F4F4F; }
+    body .news .news-list {
+      background: #EBE8E8; }
+    body .news .icon {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      padding: 15px 20px;
+      background: rgba(58, 58, 58, 0.5);
+      border-radius: 41px;
+      border: none;
+      color: white; }
   body .favorites {
     /*background: #2F4F4F;*/
     background-color: rgba(0, 0, 0, 0.6); }

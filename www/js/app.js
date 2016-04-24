@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('app', ['ionic','ngSanitize'])
+var app = angular.module('app', ['ionic'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -18,6 +18,17 @@ var app = angular.module('app', ['ionic','ngSanitize'])
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
+            }
+            if(window.Connection) {
+                if(navigator.connection.type == Connection.NONE) {
+                    $ionicPopup.alert({
+                        title: "Internet Disconnected",
+                        content: "The internet is disconnected on your device."
+                    })
+                        .then(function(result) {
+                            ionic.Platform.exitApp();
+                        });
+                }
             }
         });
     })
@@ -194,7 +205,6 @@ var app = angular.module('app', ['ionic','ngSanitize'])
                     }
                 }
             })
-
             .state('app.search', {
                 url: '/search',
                 views: {
@@ -202,7 +212,17 @@ var app = angular.module('app', ['ionic','ngSanitize'])
                         templateUrl: 'templates/search.html'
                     }
                 }
+            })
+            .state('app.singleNews',{
+                url: '/single-news/:news',
+                views: {
+                    'news' :{
+                        templateUrl: 'templates/singleNews.html',
+                        controller: 'SingleNewsCtrl'
+                    }
+                }
             });
+
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/home');
     });
