@@ -1,5 +1,5 @@
-<ion-view view-title="Recherche"  class="app search-page" hide-nav-bar="true">
-    <ion-content overflow-scroll="false">
+<ion-view view-title="R"  class="app result-page" hide-nav-bar="true">
+    <ion-content>
         <!-- <div class="row row-top">
              <div class="col">
                  <div class="list">
@@ -17,6 +17,11 @@
             <div class="col sub-header">
                 <button class="back-button" ng-click="$ionicGoBack()">Back</button>
                 <h4>Résultats</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="height:200px" ng-controller="MapCtrl">
+                <div id="carte" data-tap-disabled="true" style="width:100%; height:100%"></div>
             </div>
         </div>
        <!-- <ion-refresher

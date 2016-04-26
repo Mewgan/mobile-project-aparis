@@ -9795,20 +9795,20 @@ body {
       top: 20px;
       left: 20px;
       font-size: 2.5em; }
-  body .events-page, body .search-page {
+  body .events-page, body .result-page {
     background: #2F4F4F; }
-    body .events-page .header-title h4, body .search-page .header-title h4 {
+    body .events-page .header-title h4, body .result-page .header-title h4 {
       text-align: center;
       color: white;
       font-family: "open sans";
       margin: 10px; }
-    body .events-page .event-list .list:last-child, body .search-page .event-list .list:last-child {
+    body .events-page .event-list .list:last-child, body .result-page .event-list .list:last-child {
       background: #EBE8E8; }
-    body .events-page .event-list .links .item, body .search-page .event-list .links .item {
+    body .events-page .event-list .links .item, body .result-page .event-list .links .item {
       padding: 13px 0px 13px 50px; }
-    body .events-page .event-list .links a, body .search-page .event-list .links a {
+    body .events-page .event-list .links a, body .result-page .event-list .links a {
       width: 100%; }
-    body .events-page .scroll-to-top, body .search-page .scroll-to-top {
+    body .events-page .scroll-to-top, body .result-page .scroll-to-top {
       position: fixed;
       right: 10px;
       bottom: 10px;
@@ -9817,16 +9817,16 @@ body {
       border-radius: 41px;
       border: none;
       color: white; }
-    body .events-page .center, body .search-page .center {
+    body .events-page .center, body .result-page .center {
       display: block;
       width: 100%;
       text-align: center;
       margin-top: 10px; }
-  body .search-page {
+  body .result-page {
     background: #708090; }
-    body .search-page .sub-header {
+    body .result-page .sub-header {
       position: relative; }
-      body .search-page .sub-header button {
+      body .result-page .sub-header button {
         margin: 10px 0;
         position: absolute; }
   body .event-page {
