@@ -1,0 +1,19 @@
+<ion-view view-title="Single" class="app event-page" hide-nav-bar="true">
+    <ion-content>
+        <div class="row">
+            <button class="back-button" ng-click="$ionicGoBack()">Back</button>
+        </div>
+        <div>
+            <h1>{{event.fields.title}}</h1>
+            <img src="{{event.fields.image}}" style="width:100%;" alt="media"/>
+            <p>{{event.fields.free_text}}</p>
+        </div>
+
+    </ion-content>
+</ion-view>
+<script>
+    $('.tab-nav').hide();
+    $('.back-button').on('click',function(){
+        $('.tab-nav').show();
+    });
+</script>

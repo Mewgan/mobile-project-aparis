@@ -9755,7 +9755,6 @@ a.button {
 
 body {
   font-family: 'Open Sans','arial';
-  text-align: center;
   color: white; }
   body .view-container {
     background: url("../img/paris-tour-eiffel-nuit-resize.jpg") no-repeat center center fixed;
@@ -9764,43 +9763,52 @@ body {
     background-size: cover; }
   body .has-tabs-top {
     top: 70px !important; }
-  body .home {
+  body .home-page {
     /*background: #87CEFA;*/
     background-color: rgba(0, 0, 0, 0.6); }
-    body .home .scroll-content {
+    body .home-page .scroll-content {
       display: table !important;
       width: 100% !important;
       height: 100% !important; }
-    body .home .scroll {
+    body .home-page .scroll {
       display: table-cell;
       vertical-align: middle;
       text-align: center; }
-    body .home .scroll-bar-indicator {
+    body .home-page .scroll-bar-indicator {
       display: none; }
-    body .home h1 img {
+    body .home-page h1 img {
       width: 70%; }
-    body .home a {
+    body .home-page a {
       font-family: 'Open Sans Italic';
       color: white;
       text-decoration: none;
       font-size: 20px; }
-    body .home .around-me .col {
+    body .home-page .around-me .col {
       border-bottom: 1px solid white;
       padding: 20px 0px; }
-    body .home .search .col {
+    body .home-page .search .col {
       padding: 20px 0px; }
-    body .home .button {
+    body .home-page .button {
       width: 50%; }
-    body .home .menu-left {
+    body .home-page .menu-left {
       position: fixed;
       top: 20px;
       left: 20px;
       font-size: 2.5em; }
-  body .news {
+  body .events-page, body .search-page {
     background: #2F4F4F; }
-    body .news .news-list {
+    body .events-page .header-title h4, body .search-page .header-title h4 {
+      text-align: center;
+      color: white;
+      font-family: "open sans";
+      margin: 10px; }
+    body .events-page .event-list .list:last-child, body .search-page .event-list .list:last-child {
       background: #EBE8E8; }
-    body .news .icon {
+    body .events-page .event-list .links .item, body .search-page .event-list .links .item {
+      padding: 13px 0px 13px 50px; }
+    body .events-page .event-list .links a, body .search-page .event-list .links a {
+      width: 100%; }
+    body .events-page .scroll-to-top, body .search-page .scroll-to-top {
       position: fixed;
       right: 10px;
       bottom: 10px;
@@ -9809,6 +9817,22 @@ body {
       border-radius: 41px;
       border: none;
       color: white; }
+    body .events-page .center, body .search-page .center {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 10px; }
+  body .search-page {
+    background: #708090; }
+    body .search-page .sub-header {
+      position: relative; }
+      body .search-page .sub-header button {
+        margin: 10px 0;
+        position: absolute; }
+  body .event-page {
+    background: #2f3a40; }
+    body .event-page .has-tabs-top {
+      top: 10px !important; }
   body .favorites {
     /*background: #2F4F4F;*/
     background-color: rgba(0, 0, 0, 0.6); }

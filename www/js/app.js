@@ -4,9 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('app', ['ionic'])
+var app = angular.module('app', ['ionic','ngCordova'])
 
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform,$ionicPopup) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -30,6 +30,7 @@ var app = angular.module('app', ['ionic'])
                         });
                 }
             }
+            moment.locale('fr');
         });
     })
 
@@ -49,7 +50,30 @@ var app = angular.module('app', ['ionic'])
             }
         }
     }])
-
+    .factory('$geoLocation', function ($localStorage) {
+        return {
+            setGeolocation: function (latitude, longitude) {
+                var position = {
+                    latitude: latitude,
+                    longitude: longitude
+                };
+                $localStorage.setObject('geoLocation', position)
+            },
+            getGeolocation: function () {
+                return glocation = {
+                    lat: $localStorage.getObject('geoLocation').latitude,
+                    lng: $localStorage.getObject('geoLocation').longitude
+                }
+            }
+        }
+    })
+    .filter('moment', function () {
+        return function (input, momentFn /*, param1, param2, ...param n */) {
+            var args = Array.prototype.slice.call(arguments, 2),
+                momentObj = moment(input);
+            return momentObj[momentFn].apply(momentObj, args);
+        };
+    })
     .filter('html_entity_decode', function() {
         return function(texte) {
             texte = texte.replace(/&quot;/g,'"'); // 34 22
@@ -184,16 +208,44 @@ var app = angular.module('app', ['ionic'])
                 url: '/home',
                 views: {
                     'home': {
-                        templateUrl: 'templates/home.html'
+                        templateUrl: 'templates/home.html',
+                        controller: 'HomeCtrl'
                     }
                 }
             })
-            .state('app.news', {
-                url: '/news',
+            .state('app.search-around-me', {
+                url: '/search-around-me',
                 views: {
-                    'news': {
-                        templateUrl: 'templates/news.html',
-                        controller: 'NewsCtrl'
+                    'home': {
+                        templateUrl: 'templates/result.html',
+                        controller: 'GeoCtrl'
+                    }
+                }
+            })
+            .state('app.search-with-keywords', {
+                url: '/search-with-keywords',
+                views: {
+                    'home': {
+                        templateUrl: 'templates/search.html',
+                        controller: 'SearchCtrl'
+                    }
+                }
+            })
+            .state('app.events', {
+                url: '/events',
+                views: {
+                    'events': {
+                        templateUrl: 'templates/events.html',
+                        controller: 'EventsCtrl'
+                    }
+                }
+            })
+            .state('app.event',{
+                url: '/event/:event',
+                views: {
+                    'events' :{
+                        templateUrl: 'templates/event.html',
+                        controller: 'EventCtrl'
                     }
                 }
             })
@@ -213,15 +265,7 @@ var app = angular.module('app', ['ionic'])
                     }
                 }
             })
-            .state('app.singleNews',{
-                url: '/single-news/:news',
-                views: {
-                    'news' :{
-                        templateUrl: 'templates/singleNews.html',
-                        controller: 'SingleNewsCtrl'
-                    }
-                }
-            });
+            ;
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/home');

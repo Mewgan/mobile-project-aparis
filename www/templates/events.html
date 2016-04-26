@@ -1,0 +1,50 @@
+<ion-view view-title="Evenements"  class="app events-page" hide-nav-bar="true">
+    <ion-content overflow-scroll="false">
+       <!-- <div class="row row-top">
+            <div class="col">
+                <div class="list">
+                    <label class="item item-input item-select">
+                        <div class="input-label">Catégories</div>
+                        <select ng-model="cat" ng-change="changeCat(cat)">
+                            <option value="0" selected>Tout</option>
+                            <option ng-repeat="cat in categories" ng-bind-html="(cat.name | html_entity_decode)">{{cat.id}}</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+        </div>-->
+        <div class="row row-top header-title">
+            <div class="col">
+                <h4>Évenements</h4>
+            </div>
+        </div>
+        <ion-refresher
+                pulling-text="Tirer pour rafraîchir..."
+                on-refresh="refresh()">
+        </ion-refresher>
+        <ion-list class="event-list">
+            <div class="list card" ng-repeat="event in events">
+                <div class="item item-avatar" ng-click="renderEvent(event)">
+                    <img  ng-if="event.fields.image_thumb" src="{{event.fields.image_thumb}}">
+                    <img  ng-if="!event.fields.image_thumb" src="img/ionic.png">
+                    <h2>{{event.fields.title}}</h2>
+                    <p>{{event.fields.updated_at | moment : 'format' : 'DD/MM/YY à HH'}}h{{event.fields.updated_at | moment : 'format' : 'ss'}}</p>
+                </div>
+                <div class="item item-body">
+                    <img ng-if="event.fields.image" src="{{event.fields.image}}" alt="image" style="width:100%;"/>
+                    <p>{{event.fields.description}}</p>
+                </div>
+                <div class="item item-divider row links">
+                    <div class="col col-50">
+                        <ion-checkbox ng-model="filter.blue">Favoris</ion-checkbox>
+                    </div>
+                    <div class="col col-50">
+                        <a class="button icon-right ion-chevron-right button-calm" ng-click="renderEvent(event)">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="load()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+    <button ng-hide="events.length <= 10" ng-click="scrollTop()" class="icon ion-arrow-up-c scroll-to-top"></button>
+</ion-view>

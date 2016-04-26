@@ -1,17 +1,17 @@
-<ion-view view-title="Accueil" class="app home" hide-nav-bar="true">
+<ion-view view-title="Accueil" class="app home-page" hide-nav-bar="true">
   <ion-content overflow-scroll="false">
         <h1><img src="img/logoWhite.png"  alt="Logo A Paris"/></h1>
         <div class="row row-center around-me">
             <div class="col col-center">
-                <button class="button button-assertive">
-                    <a href="#"><i class="icon ion-ios-location-outline"> Autour de moi</i></a>
+                <button class="button button-assertive" ng-click="locate()">
+                    <i class="icon ion-ios-location-outline"> Autour de moi</i>
                 </button>
             </div>
         </div>
         <div class="row search">
             <div class="col">
-                <button class="button button-positive">
-                    <a href="#"><i class="icon ion-ios-search"> Recherche</i></a>
+                <button class="button button-positive" ui-sref="app.search-with-keywords">
+                    <i class="icon ion-ios-search"> Recherche</i>
                 </button>
             </div>
         </div>
