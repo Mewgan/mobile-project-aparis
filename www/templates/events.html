@@ -1,5 +1,5 @@
 <ion-view view-title="Evenements"  class="app events-page" hide-nav-bar="true">
-    <ion-content overflow-scroll="false">
+    <ion-content>
        <!-- <div class="row row-top">
             <div class="col">
                 <div class="list">
@@ -44,7 +44,7 @@
                 </div>
             </div>
         </ion-list>
-        <ion-infinite-scroll on-infinite="load()" distance="1%"></ion-infinite-scroll>
+        <ion-infinite-scroll on-infinite="loadEvents()" distance="1%"></ion-infinite-scroll>
     </ion-content>
     <button ng-hide="events.length <= 10" ng-click="scrollTop()" class="icon ion-arrow-up-c scroll-to-top"></button>
 </ion-view>

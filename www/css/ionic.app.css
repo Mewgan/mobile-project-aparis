@@ -9746,26 +9746,47 @@ a.button {
 .tabs-striped.tabs-background-none .tabs {
   background-color: transparent;
   background-image: none;
-  border: none; }
+  border: none;
+  top: 0;
+  padding-top: 5px; }
 
 .popup-container.active .popup {
-  background: #343434; }
+  background: #DE4646;
+  border-radius: 10px; }
   .popup-container.active .popup .popup-head h3 {
-    color: white; }
+    color: white;
+    font-size: 1.5em; }
+  .popup-container.active .popup .popup-body {
+    text-align: center; }
+  .popup-container.active .popup .popup-buttons button {
+    background: white;
+    color: black; }
 
 body {
   font-family: 'Open Sans','arial';
-  color: white; }
-  body .view-container {
-    background: url("../img/paris-tour-eiffel-nuit-resize.jpg") no-repeat center center fixed;
+  color: white;
+  /* .view-container{
+    background: url('../img/paris-tour-eiffel-nuit-resize.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
-    background-size: cover; }
+    background-size: cover;
+  }*/ }
   body .has-tabs-top {
-    top: 70px !important; }
+    top: 64px !important; }
+  body .back-button {
+    background: none;
+    border: none;
+    color: white;
+    margin: 0 !important; }
+    body .back-button span {
+      font-size: 2em; }
   body .home-page {
-    /*background: #87CEFA;*/
-    background-color: rgba(0, 0, 0, 0.6); }
+    background: #5E2659;
+    /* background-color: rgba(0, 0, 0, 0.6);*/ }
+    body .home-page .intro-text {
+      color: #E9FF00; }
+    body .home-page .icon {
+      float: left; }
     body .home-page .scroll-content {
       display: table !important;
       width: 100% !important;
@@ -9786,29 +9807,29 @@ body {
     body .home-page .around-me .col {
       border-bottom: 1px solid white;
       padding: 20px 0px; }
-    body .home-page .search .col {
-      padding: 20px 0px; }
+    body .home-page .search-bloc {
+      margin-top: 10px; }
     body .home-page .button {
-      width: 50%; }
+      width: 70%; }
     body .home-page .menu-left {
       position: fixed;
       top: 20px;
       left: 20px;
       font-size: 2.5em; }
-  body .events-page, body .result-page {
-    background: #2F4F4F; }
-    body .events-page .header-title h4, body .result-page .header-title h4 {
+  body .events-page, body .result-page, body .search-page {
+    background: #FC9C17; }
+    body .events-page .header-title h4, body .result-page .header-title h4, body .search-page .header-title h4 {
       text-align: center;
       color: white;
       font-family: "open sans";
       margin: 10px; }
-    body .events-page .event-list .list:last-child, body .result-page .event-list .list:last-child {
+    body .events-page .event-list .list:last-child, body .result-page .event-list .list:last-child, body .search-page .event-list .list:last-child {
       background: #EBE8E8; }
-    body .events-page .event-list .links .item, body .result-page .event-list .links .item {
+    body .events-page .event-list .links .item, body .result-page .event-list .links .item, body .search-page .event-list .links .item {
       padding: 13px 0px 13px 50px; }
-    body .events-page .event-list .links a, body .result-page .event-list .links a {
+    body .events-page .event-list .links a, body .result-page .event-list .links a, body .search-page .event-list .links a {
       width: 100%; }
-    body .events-page .scroll-to-top, body .result-page .scroll-to-top {
+    body .events-page .scroll-to-top, body .result-page .scroll-to-top, body .search-page .scroll-to-top {
       position: fixed;
       right: 10px;
       bottom: 10px;
@@ -9817,18 +9838,49 @@ body {
       border-radius: 41px;
       border: none;
       color: white; }
-    body .events-page .center, body .result-page .center {
+    body .events-page .center, body .result-page .center, body .search-page .center {
       display: block;
       width: 100%;
       text-align: center;
       margin-top: 10px; }
   body .result-page {
-    background: #708090; }
+    background: #FC9C17; }
     body .result-page .sub-header {
       position: relative; }
       body .result-page .sub-header button {
         margin: 10px 0;
         position: absolute; }
+  body .search-page {
+    background-color: #D54949; }
+    body .search-page .sub-header {
+      position: relative; }
+      body .search-page .sub-header button {
+        margin: 10px 0;
+        position: absolute; }
+    body .search-page .scroll, body .search-page .search-bloc {
+      height: 100%; }
+    body .search-page .search-bloc {
+      margin-top: -70px; }
+      body .search-page .search-bloc .input-label {
+        width: 100%;
+        color: #E9FF00; }
+      body .search-page .search-bloc .input-icon {
+        padding: 0 10px; }
+      body .search-page .search-bloc .mt {
+        margin-top: 10px; }
+    body .search-page .scroll-content {
+      height: initial !important; }
+    body .search-page .search-form {
+      width: 100%; }
+    body .search-page .search-button {
+      display: block;
+      width: 70%;
+      margin: 0 auto;
+      margin-top: 20px;
+      background: #E7F703;
+      color: black; }
+      body .search-page .search-button i {
+        float: right; }
   body .event-page {
     background: #2f3a40; }
     body .event-page .has-tabs-top {

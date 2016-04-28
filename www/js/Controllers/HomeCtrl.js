@@ -1,89 +1,170 @@
 app.
-    controller('HomeCtrl',function($scope,$state) {
+    controller('HomeCtrl',function($scope,$state,$ionicPopup) {
 
         $scope.locate = function(){
-            $state.go('app.search-around-me');
+            $state.go('app.search-around-me',{query:'',radius:2000,date: ''});
+        };
+
+        $scope.search = function(query,radius,date){
+            if(typeof query === 'undefined' && typeof radius === 'undefined' && typeof date === 'undefined')
+                $ionicPopup.alert({
+                    title: 'Information',
+                    template: 'Veuillez renseigner au moins un champ'
+                });
+            else {
+                if (typeof radius !== 'undefined')
+                    $state.go('app.search-around-me', {query: query, radius: radius, date: date});
+                else
+                    $state.go('app.search-query', {query: query, date: date});
+            }
         };
 
     })
-    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$state,$ionicPlatform,$http,$cordovaGeolocation,$geoLocation){
+    .controller('SearchCtrl',function($http,$scope,$ionicLoading,$state,$stateParams,$ionicPopup,$ionicScrollDelegate){
 
-            $scope.events = [];
+        $scope.results = [];
 
-            $scope.loading = true;
+        $scope.loading = true;
 
-            $scope.renderEvent = function(event){
-                $state.go('app.event',{event:angular.toJson(event)});
-            };
+        $scope.isNothing = 1;
 
-            $scope.scrollTop = function() {
-                $ionicScrollDelegate.scrollTop();
-            };
+        $scope.map = false;
 
-            $scope.load = function() {
-                var options = {
-                    enableHighAccuracy: true,
-                    timeout: 5000,
-                    maximumAge: 0
-                };
-                $ionicPlatform.ready(function () {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-                        var url = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&start=" + $scope.events.length + "&geofilter.distance=" + position.coords.latitude + "," + position.coords.longitude + ",5000";
-                        $http.get(url).success(function (response) {
-                            $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
-                            if(response.records.length != 10)$scope.loading= false;
-                            for (var i = 0; i < response.records.length; i++)
-                                $scope.events.push(response.records[i]);
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }).error(function () {
-                            $ionicPopup.alert({
-                                title: 'Erreur',
-                                template: 'Impossible de récupérer les informations !'
-                            }).then(function () {
-                                $state.go('app.home');
-                            });
-                        });
-                    }, function () {
-                        $ionicPopup.alert({
-                            title: 'Erreur',
-                            template: 'Oops :( Problème technique !'
-                        }).then(function () {
-                            $state.go('app.home');
-                        })
-                    }, options);
+        $scope.renderEvent = function(event){
+            $state.go('app.single',{event:angular.toJson(event)});
+        };
+
+        $scope.scrollTop = function() {
+            $ionicScrollDelegate.scrollTop();
+        };
+
+        $ionicLoading.show({
+            template: '<ion-spinner></ion-spinner>'
+        });
+        var uri = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&start=" + $scope.results.length+"&q=";
+        var isQuery = false;
+        if($stateParams.query !== '') {
+            uri += $stateParams.query;isQuery = true;
+        }
+        if($stateParams.date !== '')
+            if(isQuery)
+                uri += " AND date_start >="+moment($stateParams.date).format('DD/MM/YYYY');
+            else
+                uri += "date_start >="+moment($stateParams.date).format('DD/MM/YYYY');
+
+        $scope.load = function() {
+            $http.get(uri)
+                .success(function (response) {
+                    $ionicLoading.hide();
+                    $scope.isNothing = response.records.length;
+                    if (response.records.length != 10)$scope.loading = false;
+                    for (var i = 0; i < response.records.length; i++)
+                        $scope.results.push(response.records[i]);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                }).error(function () {
+                    $ionicLoading.hide();
+                    $ionicPopup.alert({
+                        title: 'Erreur',
+                        template: 'Impossible de récupérer les informations !'
+                    });
+                }).finally(function () {
+                    // Stop the ion-refresher from spinning
+                    $scope.$broadcast('scroll.refreshComplete');
                 });
-            }
+        };
     })
-    .controller('MapCtrl',function($scope,$geoLocation,$ionicPlatform){
-        $ionicPlatform.ready(function () {
-            var latlng = new google.maps.LatLng($geoLocation.setGeolocation.lat,$geoLocation.setGeolocation.lng);
-            //objet contenant des propriétés avec des identificateurs prédéfinis dans Google Maps permettant
-            //de définir des options d'affichage de notre carte
-            var options = {
-                center: latlng,
-                zoom: 4,
+    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$state,$ionicPlatform,$http,$cordovaGeolocation,$geoLocation,$stateParams,$ionicPopup){
+
+        $scope.results = [];
+
+        $scope.loading = true;
+
+        $scope.map = true;
+
+        $scope.isNothing = 1;
+
+        $scope.renderEvent = function(event){
+            $state.go('app.single',{event:angular.toJson(event)});
+        };
+
+        $scope.scrollTop = function() {
+            $ionicScrollDelegate.scrollTop();
+        };
+        $scope.initialize = function(lat,lng) {
+            var myLatlng = new google.maps.LatLng(lat,lng);
+
+            var mapOptions = {
+                center: myLatlng,
+                zoom: 12,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
+            var map = new google.maps.Map(document.getElementById("carte"),
+                mapOptions);
 
-            //constructeur de la carte qui prend en paramêtre le conteneur HTML
-            //dans lequel la carte doit s'afficher et les options
-            var carte = new google.maps.Map(document.getElementById("carte"), options);
 
-            var marqueur = new google.maps.Marker({
-                position: latlng,
-                map: carte
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map
             });
-
             var cityCircle = new google.maps.Circle({
-                strokeColor: '#FF0000',
+                strokeColor: '#55D5DF',
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
-                fillColor: '#FF0000',
+                fillColor: '#55D5DF',
                 fillOpacity: 0.35,
-                map: carte,
-                center: latlng,
-                radius: 5000
+                map: map,
+                center: myLatlng,
+                radius: parseInt($stateParams.radius)
             });
+        };
+        $ionicLoading.show({
+            template: '<ion-spinner></ion-spinner>'
         });
 
-    });
+
+        $scope.load = function() {
+            var options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+            var date = moment().format('DD/MM/YYYY');
+            var query = '';
+            if(typeof $stateParams.date !== '' && $stateParams.date !== '')
+                date = moment($stateParams.date).format('DD/MM/YYYY');
+            if(typeof $stateParams.query !== 'undefined' && $stateParams.query !== '')
+                query = $stateParams.query+" AND ";
+            $ionicPlatform.ready(function () {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var url = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&sort=updated_at&facet=date_end&start=" + $scope.results.length + "&geofilter.distance=" + position.coords.latitude + "," + position.coords.longitude + ","+$stateParams.radius+"&q="+query+"date_start >="+date;
+                    $http.get(url).success(function (response) {
+                        $ionicLoading.hide();
+                        $scope.isNothing = response.records.length;
+                        $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
+                        google.maps.event.addDomListener(window, 'load', $scope.initialize(position.coords.latitude,position.coords.longitude));
+                        if(response.records.length != 10)$scope.loading= false;
+                        for (var i = 0; i < response.records.length; i++)
+                            $scope.results.push(response.records[i]);
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    }).error(function () {
+                        $ionicLoading.hide();
+                        $ionicPopup.alert({
+                            title: 'Erreur',
+                            template: 'Impossible de récupérer les informations !'
+                        }).then(function () {
+                            $state.go('app.home');
+                        });
+                    });
+                }, function () {
+                    $ionicLoading.hide();
+                    $ionicPopup.alert({
+                        title: 'Erreur',
+                        template: 'Oops :( Problème technique !'
+                    }).then(function () {
+                        $state.go('app.home');
+                    })
+                }, options);
+            });
+        }
+    })
+;

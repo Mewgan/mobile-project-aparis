@@ -196,7 +196,6 @@ var app = angular.module('app', ['ionic','ngCordova'])
             return texte;
         };
     })
-
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('app', {
@@ -213,8 +212,17 @@ var app = angular.module('app', ['ionic','ngCordova'])
                     }
                 }
             })
+            .state('app.search', {
+                url: '/search',
+                views: {
+                    'home': {
+                        templateUrl: 'templates/search.html',
+                        controller: 'HomeCtrl'
+                    }
+                }
+            })
             .state('app.search-around-me', {
-                url: '/search-around-me',
+                url: '/search-around-me/:query/:radius/:date',
                 views: {
                     'home': {
                         templateUrl: 'templates/result.html',
@@ -222,12 +230,21 @@ var app = angular.module('app', ['ionic','ngCordova'])
                     }
                 }
             })
-            .state('app.search-with-keywords', {
-                url: '/search-with-keywords',
+            .state('app.search-query', {
+                url: '/search-query/:query/:date',
                 views: {
                     'home': {
-                        templateUrl: 'templates/search.html',
+                        templateUrl: 'templates/result.html',
                         controller: 'SearchCtrl'
+                    }
+                }
+            })
+            .state('app.single',{
+                url: '/single/:event',
+                views: {
+                    'home' :{
+                        templateUrl: 'templates/single.html',
+                        controller: 'EventCtrl'
                     }
                 }
             })

@@ -1,5 +1,50 @@
-<ion-view view-title="Recherche" class="app search-page" hide-nav-bar="true">
-    <ion-content overflow-scroll="false">
-
+<ion-view view-title="Recherche"  class="app search-page" hide-nav-bar="true">
+    <ion-content>
+        <div class="row row-top header-title">
+            <div class="col sub-header">
+                <button class="back-button" ng-click="$ionicGoBack()"><span class="icon ion-arrow-left-c"></span></button>
+                <h4>Recherche</h4>
+            </div>
+        </div>
+        <div class="row row-center search-bloc">
+            <div class="col">
+                <div class="row">
+                    <span class="input-label">Recherche par mots clef</span>
+                </div>
+                <div class="row">
+                    <div class="list list-inset search-form">
+                        <label class="item item-input">
+                            <i class="input-icon icon ion-search"></i>
+                            <input ng-model="query" type="text" placeholder="Mots clef">
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt">
+                    <span class="input-label">Dans un rayon <de></de> (m)</span>
+                </div>
+                <div class="row">
+                    <div class="list list-inset search-form">
+                        <label class="item item-input">
+                            <i class="input-icon icon ion-map"></i>
+                            <input ng-model="radius" type="text" placeholder="Rayon">
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt">
+                    <span class="input-label">A partir de quelle date ?</span>
+                </div>
+                <div class="row">
+                    <div class="list list-inset search-form">
+                        <label class="item item-input">
+                            <i class="input-icon icon ion-calendar"></i>
+                            <input ng-model="date" ng-change="openDatePicker()" type="date" placeholder="Date">
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <button ng-click="search(query,radius,date)" class="button search-button">Trouver <i class="icon ion-ios-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

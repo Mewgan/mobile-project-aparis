@@ -1,19 +1,24 @@
 <ion-view view-title="Accueil" class="app home-page" hide-nav-bar="true">
   <ion-content overflow-scroll="false">
         <h1><img src="img/logoWhite.png"  alt="Logo A Paris"/></h1>
+        <div class="row-center row intro-text">
+            <em>Trouver les événements à venir sur Paris autour de vous ou faites une recherche avancée par critére</em>
+        </div>
         <div class="row row-center around-me">
             <div class="col col-center">
-                <button class="button button-assertive" ng-click="locate()">
-                    <i class="icon ion-ios-location-outline"> Autour de moi</i>
+                <button class="button" ng-click="locate()">
+                    <i class="icon ion-ios-location-outline"></i>
+                    Autour de moi
                 </button>
             </div>
         </div>
-        <div class="row search">
-            <div class="col">
-                <button class="button button-positive" ui-sref="app.search-with-keywords">
-                    <i class="icon ion-ios-search"> Recherche</i>
-                </button>
-            </div>
-        </div>
+      <div class="row row-center search-bloc">
+          <div class="col col-center">
+              <button class="button" ui-sref="app.search">
+                  <i class="icon ion-ios-search"></i>
+                  Recherche
+              </button>
+          </div>
+      </div>
   </ion-content>
 </ion-view>

@@ -15,6 +15,8 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+$txt-color : #E9FF00;
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
@@ -37,30 +39,58 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   background-color: transparent;
   background-image: none;
   border: none;
+  top: 0;
+  padding-top: 5px;
 }
 
 .popup-container.active .popup{
-  background: #343434;
+  background: #DE4646;
+  border-radius: 10px;
   .popup-head h3{
     color: white;
+    font-size: 1.5em;
+  }
+  .popup-body{
+    text-align: center;
+  }
+  .popup-buttons{
+    button{
+      background: white;
+      color: black;
+    }
   }
 }
 
 body{
   font-family: 'Open Sans','arial';
   color: white;
-  .view-container{
+ /* .view-container{
     background: url('../img/paris-tour-eiffel-nuit-resize.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
-  }
+  }*/
   .has-tabs-top{
-    top: 70px !important;
+    top: 64px !important;
+  }
+  .back-button{
+    background: none;
+    border: none;
+    color: white;
+    margin: 0 !important;
+    span{
+      font-size: 2em;
+    }
   }
   .home-page {
-    /*background: #87CEFA;*/
-    background-color: rgba(0, 0, 0, 0.6);
+    background: #5E2659;
+   /* background-color: rgba(0, 0, 0, 0.6);*/
+    .intro-text{
+      color:$txt-color;
+    }
+    .icon{
+      float: left;
+    }
     .scroll-content{
       display: table !important;
       width: 100% !important;
@@ -89,11 +119,11 @@ body{
       border-bottom: 1px solid white;
       padding: 20px 0px;
     }
-    .search .col {
-      padding: 20px 0px;
+    .search-bloc{
+      margin-top: 10px;
     }
     .button {
-      width: 50%;
+      width: 70%;
     }
     .menu-left {
       position: fixed;
@@ -102,8 +132,8 @@ body{
       font-size: 2.5em;
     }
   }
-  .events-page,.result-page{
-    background: #2F4F4F;
+  .events-page,.result-page,.search-page{
+      background: #FC9C17;
     .header-title h4{
       text-align: center;
       color: white;
@@ -141,12 +171,55 @@ body{
     }
   }
   .result-page{
-    background: #708090;
+    background: #FC9C17;
     .sub-header{
       position: relative;
       button {
         margin: 10px 0;
         position: absolute;
+      }
+    }
+  }
+  .search-page{
+    background-color: #D54949;
+    .sub-header{
+      position: relative;
+      button {
+        margin: 10px 0;
+        position: absolute;
+      }
+    }
+    .scroll,.search-bloc {
+      height: 100%;
+    }
+    .search-bloc{
+      margin-top: -70px;
+      .input-label{
+        width: 100%;
+        color: $txt-color;
+      }
+      .input-icon{
+        padding: 0 10px;
+      }
+      .mt{
+        margin-top: 10px;
+      }
+    }
+    .scroll-content{
+      height: initial !important;
+    }
+    .search-form{
+      width: 100%;
+    }
+    .search-button{
+      display: block;
+      width: 70%;
+      margin: 0 auto;
+      margin-top: 20px;
+      background: #E7F703;
+      color: black;
+      i{
+        float: right;
       }
     }
   }
@@ -156,7 +229,6 @@ body{
       top: 10px !important;
     }
   }
-
   .favorites{
     /*background: #2F4F4F;*/
     background-color: rgba(0, 0, 0, 0.6);
