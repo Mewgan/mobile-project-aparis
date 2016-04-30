@@ -78,7 +78,7 @@ body{
     border: none;
     color: white;
     margin: 0 !important;
-    span{
+    i{
       font-size: 2em;
     }
   }
@@ -193,7 +193,6 @@ body{
       height: 100%;
     }
     .search-bloc{
-      margin-top: -70px;
       .input-label{
         width: 100%;
         color: $txt-color;
@@ -224,9 +223,115 @@ body{
     }
   }
   .event-page{
-    background: #2f3a40;
+    background: #50AF8F;
+    .back-button {
+      border: none;
+      color: white;
+      margin: 0 !important;
+      background: #50AF8F;
+      border-radius: 100%;
+      width: 40px;
+      height: 40px;
+    }
+    .share{
+      float: right;
+      border: none;
+      color: white;
+      margin: 0 !important;
+      background: #50A4C8;
+      border-radius: 100%;
+      width: 40px;
+      height: 40px;
+      i{
+        font-size: 2em;
+      }
+    }
     .has-tabs-top{
-      top: 10px !important;
+      top: 0px !important;
+    }
+    .header-title{
+      position: absolute;
+      top: 0;
+      z-index: 999;
+    }
+    .article{
+      position: absolute;
+      top: 0;
+      width: 100%;
+      .article-head{
+        .thumbnail{
+          height: 300px;
+          overflow: hidden;
+          position: relative;
+          .overlap{
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+          }
+          img{
+            width: 100%;height: 100%;
+          }
+        }
+        h1{
+          margin: 0;
+          color: #3A4642;
+          width: 100%;
+          background: white;
+          padding: 10px;
+          font-size: 1.6em;
+          &.no-image{
+            margin-top: 65px;
+          }
+        }
+      }
+      .info{
+        padding: 10px;
+        em{
+          font-size: 1.2em;
+          color: #50AF8F;
+          padding: 10px;
+          margin: 0;
+          i{
+            margin-right: 10px;
+          }
+        }
+      }
+      .description{
+        padding: 10px;
+        height: 300px;
+        overflow: hidden;
+        margin-bottom: 10px;
+        p{
+          font-size: 1.2em;
+          line-height: 30px;
+          width: 100%;
+        }
+      }
+      .show{
+        text-align: center;
+        border-top: 1px solid;
+        padding-top: 5px;
+        .show-minus,.show-plus{
+          font-size: 2em;
+          color: white;
+        }
+        .show-minus{
+          display: none;
+        }
+      }
+      .second-title{
+        padding: 0;
+        h2{
+          width: 100%;
+          background: white;
+          padding: 10px;
+          color: #3A4642;
+          margin: 15px 0;
+          font-size: 1.4em;
+        }
+      }
     }
   }
   .favorites{

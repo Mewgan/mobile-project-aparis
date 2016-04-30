@@ -1,12 +1,56 @@
 <ion-view view-title="Event" class="app event-page" hide-nav-bar="true">
     <ion-content>
-        <div class="row">
-            <button class="back-button" ng-click="$ionicGoBack()">Back</button>
+        <div class="row row-top header-title">
+            <div class="col sub-header">
+                <button class="back-button" ng-click="$ionicGoBack()"><i class="icon ion-arrow-left-c"></i></button>
+                <button class="share" ng-click="share(event)"><i class="icon ion-share"></i></button>
+            </div>
         </div>
-        <div>
-            <h1>{{event.fields.title}}</h1>
-            <img src="{{event.fields.image}}" style="width:100%;" alt="media"/>
-            <p>{{event.fields.free_text}}</p>
+        <div class="article">
+            <div class="article-head">
+                <div class="thumbnail" ng-show="{{event.fields.image}}">
+                    <div class="overlap"></div>
+                    <img src="{{event.fields.image}}"  alt="media"/>
+                </div>
+                <h1 ng-class="event.fields.image ? 'has-image' : 'no-image'">{{event.fields.title}}</h1>
+            </div>
+            <div class="row info" ng-show="event.fields.updated_at">
+                <em class="card"><i class="icon ion-calendar"></i>{{event.fields.updated_at | moment : 'format' : 'DD/MM/YY'}}</em>
+            </div>
+            <div class="row info" ng-show="event.fields.tags">
+                <em class="card"><i class="icon ion-ios-pricetags"></i>{{event.fields.tags}}</em>
+            </div>
+            <div class="row description" ng-show="event.fields.free_text">
+                <p>{{event.fields.free_text}}</p>
+            </div>
+            <div class="row show" ng-show="event.fields.free_text">
+                <a class="show-plus"><i class="icon ion-ios-arrow-down"></i></a>
+                <a class="show-minus"><i class="icon ion-ios-arrow-up"></i></a>
+            </div>
+            <div class="row info" ng-show="event.fields.link">
+                <em class="card"><i class="icon ion-link"></i><a href="{{event.fields.link}}">Aller sur le site</a></em>
+            </div>
+            <div class="row second-title">
+                <h2>Info sur l'événement</h2>
+            </div>
+            <div class="row info" ng-show="event.fields.pricing_info">
+                <em class="card"><i class="icon ion-social-euro"></i>{{event.fields.pricing_info }}</em>
+            </div>
+            <div class="row info" ng-show="event.fields.date_start">
+                <em class="card"><i class="icon ion-android-time"></i>{{event.fields.date_start | moment : 'format' : 'DD/MM/YY à HH'}}h{{event.fields.date_start | moment : 'format' : 'ss'}}</em>
+            </div>
+            <div class="row info" ng-show="event.fields.placename">
+                <em class="card"><i class="icon ion-location"></i> {{event.fields.placename}}</em>
+            </div>
+            <div class="row">
+                <div class="col card" style="height:200px">
+                    <div id="carte" data-tap-disabled="true" style="width:100%; height:100%"></div>
+                </div>
+            </div>
+            <div class="row add-to-favorite">
+                <button>Ajouter</button>
+            </div>
+
         </div>
 
     </ion-content>
@@ -15,5 +59,15 @@
     $('.tab-nav').hide();
     $('.back-button').on('click',function(){
         $('.tab-nav').show();
+    });
+    $('.show-plus').on('click',function(){
+        $('.description').css({height: 'auto',overflow:'auto'});
+        $('.show-plus').hide();
+        $('.show-minus').show();
+    });
+    $('.show-minus').on('click',function(){
+        $('.description').css({height: '300px',overflow:'hidden'});
+        $('.show-minus').hide();
+        $('.show-plus').show();
     });
 </script>

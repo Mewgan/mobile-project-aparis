@@ -13,7 +13,6 @@ var app = angular.module('app', ['ionic','ngCordova'])
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 cordova.plugins.Keyboard.disableScroll(true);
-
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
@@ -22,8 +21,8 @@ var app = angular.module('app', ['ionic','ngCordova'])
             if(window.Connection) {
                 if(navigator.connection.type == Connection.NONE) {
                     $ionicPopup.alert({
-                        title: "Internet Disconnected",
-                        content: "The internet is disconnected on your device."
+                        title: "Réseau internet non disponible",
+                        content: "Vous n'êtes pas connecté à internet"
                     })
                         .then(function(result) {
                             ionic.Platform.exitApp();
@@ -243,7 +242,7 @@ var app = angular.module('app', ['ionic','ngCordova'])
                 url: '/single/:event',
                 views: {
                     'home' :{
-                        templateUrl: 'templates/single.html',
+                        templateUrl: 'templates/event.html',
                         controller: 'EventCtrl'
                     }
                 }

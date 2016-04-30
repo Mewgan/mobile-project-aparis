@@ -15,7 +15,7 @@
         </div>-->
         <div class="row row-top header-title">
             <div class="col">
-                <h4>Évenements</h4>
+                <h4>Événements</h4>
             </div>
         </div>
         <ion-refresher
@@ -28,7 +28,7 @@
                     <img  ng-if="event.fields.image_thumb" src="{{event.fields.image_thumb}}">
                     <img  ng-if="!event.fields.image_thumb" src="img/ionic.png">
                     <h2>{{event.fields.title}}</h2>
-                    <p>{{event.fields.updated_at | moment : 'format' : 'DD/MM/YY à HH'}}h{{event.fields.updated_at | moment : 'format' : 'ss'}}</p>
+                    <p>le {{event.fields.date_start | moment : 'format' : 'DD/MM/YY à HH'}}h{{event.fields.date_start | moment : 'format' : 'ss'}}</p>
                 </div>
                 <div class="item item-body">
                     <img ng-if="event.fields.image" src="{{event.fields.image}}" alt="image" style="width:100%;"/>
@@ -36,10 +36,10 @@
                 </div>
                 <div class="item item-divider row links">
                     <div class="col col-50">
-                        <ion-checkbox ng-model="filter.blue">Favoris</ion-checkbox>
+                        <ion-checkbox ng-model="filter.blue">Participer</ion-checkbox>
                     </div>
                     <div class="col col-50">
-                        <a class="button icon-right ion-chevron-right button-calm" ng-click="renderEvent(event)">En savoir plus</a>
+                        <a class="button icon-right ion-chevron-right button-energized" ng-click="renderEvent(event)">En savoir plus</a>
                     </div>
                 </div>
             </div>

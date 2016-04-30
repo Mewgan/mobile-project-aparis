@@ -9778,7 +9778,7 @@ body {
     border: none;
     color: white;
     margin: 0 !important; }
-    body .back-button span {
+    body .back-button i {
       font-size: 2em; }
   body .home-page {
     background: #5E2659;
@@ -9859,15 +9859,13 @@ body {
         position: absolute; }
     body .search-page .scroll, body .search-page .search-bloc {
       height: 100%; }
-    body .search-page .search-bloc {
-      margin-top: -70px; }
-      body .search-page .search-bloc .input-label {
-        width: 100%;
-        color: #E9FF00; }
-      body .search-page .search-bloc .input-icon {
-        padding: 0 10px; }
-      body .search-page .search-bloc .mt {
-        margin-top: 10px; }
+    body .search-page .search-bloc .input-label {
+      width: 100%;
+      color: #E9FF00; }
+    body .search-page .search-bloc .input-icon {
+      padding: 0 10px; }
+    body .search-page .search-bloc .mt {
+      margin-top: 10px; }
     body .search-page .scroll-content {
       height: initial !important; }
     body .search-page .search-form {
@@ -9882,9 +9880,94 @@ body {
       body .search-page .search-button i {
         float: right; }
   body .event-page {
-    background: #2f3a40; }
+    background: #50AF8F; }
+    body .event-page .back-button {
+      border: none;
+      color: white;
+      margin: 0 !important;
+      background: #50AF8F;
+      border-radius: 100%;
+      width: 40px;
+      height: 40px; }
+    body .event-page .share {
+      float: right;
+      border: none;
+      color: white;
+      margin: 0 !important;
+      background: #50A4C8;
+      border-radius: 100%;
+      width: 40px;
+      height: 40px; }
+      body .event-page .share i {
+        font-size: 2em; }
     body .event-page .has-tabs-top {
-      top: 10px !important; }
+      top: 0px !important; }
+    body .event-page .header-title {
+      position: absolute;
+      top: 0;
+      z-index: 999; }
+    body .event-page .article {
+      position: absolute;
+      top: 0;
+      width: 100%; }
+      body .event-page .article .article-head .thumbnail {
+        height: 300px;
+        overflow: hidden;
+        position: relative; }
+        body .event-page .article .article-head .thumbnail .overlap {
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.3); }
+        body .event-page .article .article-head .thumbnail img {
+          width: 100%;
+          height: 100%; }
+      body .event-page .article .article-head h1 {
+        margin: 0;
+        color: #3A4642;
+        width: 100%;
+        background: white;
+        padding: 10px;
+        font-size: 1.6em; }
+        body .event-page .article .article-head h1.no-image {
+          margin-top: 65px; }
+      body .event-page .article .info {
+        padding: 10px; }
+        body .event-page .article .info em {
+          font-size: 1.2em;
+          color: #50AF8F;
+          padding: 10px;
+          margin: 0; }
+          body .event-page .article .info em i {
+            margin-right: 10px; }
+      body .event-page .article .description {
+        padding: 10px;
+        height: 300px;
+        overflow: hidden;
+        margin-bottom: 10px; }
+        body .event-page .article .description p {
+          font-size: 1.2em;
+          line-height: 30px;
+          width: 100%; }
+      body .event-page .article .show {
+        text-align: center;
+        border-top: 1px solid;
+        padding-top: 5px; }
+        body .event-page .article .show .show-minus, body .event-page .article .show .show-plus {
+          font-size: 2em;
+          color: white; }
+        body .event-page .article .show .show-minus {
+          display: none; }
+      body .event-page .article .second-title {
+        padding: 0; }
+        body .event-page .article .second-title h2 {
+          width: 100%;
+          background: white;
+          padding: 10px;
+          color: #3A4642;
+          margin: 15px 0;
+          font-size: 1.4em; }
   body .favorites {
     /*background: #2F4F4F;*/
     background-color: rgba(0, 0, 0, 0.6); }

@@ -5,6 +5,16 @@ app.
             $state.go('app.search-around-me',{query:'',radius:2000,date: ''});
         };
 
+        $scope.disableTap = function(){
+            container = document.getElementsByClassName('pac-container');
+            // disable ionic data tab
+            angular.element(container).attr('data-tap-disabled', 'true');
+            // leave input field if google-address-entry is selected
+            angular.element(container).on("click", function(){
+                document.getElementById('searchBar').blur();
+            });
+        };
+
         $scope.search = function(query,radius,date){
             if(typeof query === 'undefined' && typeof radius === 'undefined' && typeof date === 'undefined')
                 $ionicPopup.alert({
@@ -41,7 +51,7 @@ app.
         $ionicLoading.show({
             template: '<ion-spinner></ion-spinner>'
         });
-        var uri = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&start=" + $scope.results.length+"&q=";
+        var uri = "";
         var isQuery = false;
         if($stateParams.query !== '') {
             uri += $stateParams.query;isQuery = true;
@@ -53,7 +63,7 @@ app.
                 uri += "date_start >="+moment($stateParams.date).format('DD/MM/YYYY');
 
         $scope.load = function() {
-            $http.get(uri)
+            $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&start=" + $scope.results.length+"&q="+uri)
                 .success(function (response) {
                     $ionicLoading.hide();
                     $scope.isNothing = response.records.length;

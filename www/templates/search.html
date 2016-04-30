@@ -2,11 +2,11 @@
     <ion-content>
         <div class="row row-top header-title">
             <div class="col sub-header">
-                <button class="back-button" ng-click="$ionicGoBack()"><span class="icon ion-arrow-left-c"></span></button>
+                <button class="back-button" ng-click="$ionicGoBack()"><i class="icon ion-arrow-left-c"></i></button>
                 <h4>Recherche</h4>
             </div>
         </div>
-        <div class="row row-center search-bloc">
+        <div class="row search-bloc">
             <div class="col">
                 <div class="row">
                     <span class="input-label">Recherche par mots clef</span>
@@ -15,7 +15,7 @@
                     <div class="list list-inset search-form">
                         <label class="item item-input">
                             <i class="input-icon icon ion-search"></i>
-                            <input ng-model="query" type="text" placeholder="Mots clef">
+                            <input ng-model="query" ng-focus="disableTap()" type="text" placeholder="Mots clef">
                         </label>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                     <div class="list list-inset search-form">
                         <label class="item item-input">
                             <i class="input-icon icon ion-map"></i>
-                            <input ng-model="radius" type="text" placeholder="Rayon">
+                            <input ng-model="radius" ng-focus="disableTap()" type="text" placeholder="Rayon">
                         </label>
                     </div>
                 </div>
