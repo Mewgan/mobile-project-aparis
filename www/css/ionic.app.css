@@ -9762,6 +9762,12 @@ a.button {
     background: white;
     color: black; }
 
+.left-sidebar {
+  background: #65999D; }
+  .left-sidebar .item-complex .item-content {
+    background-color: #65999D !important;
+    color: white; }
+
 body {
   font-family: 'Open Sans','arial';
   color: white;
@@ -9772,7 +9778,7 @@ body {
     background-size: cover;
   }*/ }
   body .has-tabs-top {
-    top: 64px !important; }
+    top: 85px !important; }
   body .back-button {
     background: none;
     border: none;
@@ -9823,8 +9829,17 @@ body {
       color: white;
       font-family: "open sans";
       margin: 10px; }
-    body .events-page .event-list .list:last-child, body .result-page .event-list .list:last-child, body .search-page .event-list .list:last-child {
-      background: #EBE8E8; }
+    body .events-page .event-list .list, body .result-page .event-list .list, body .search-page .event-list .list {
+      padding-right: 0; }
+      body .events-page .event-list .list.ng-enter, body .result-page .event-list .list.ng-enter, body .search-page .event-list .list.ng-enter {
+        -webkit-animation: fadeInLeft 1s;
+        animation: fadeInLeft 1s; }
+      body .events-page .event-list .list.ng-enter-stagger, body .result-page .event-list .list.ng-enter-stagger, body .search-page .event-list .list.ng-enter-stagger {
+        -webkit-animation-delay: 200ms;
+        animation-delay: 200ms;
+        /* override to make sure it's not inherited from other styles */
+        -webkit-animation-duration: 0;
+        animation-duration: 0; }
     body .events-page .event-list .links .item, body .result-page .event-list .links .item, body .search-page .event-list .links .item {
       padding: 13px 0px 13px 50px; }
     body .events-page .event-list .links a, body .result-page .event-list .links a, body .search-page .event-list .links a {
@@ -9968,6 +9983,24 @@ body {
           color: #3A4642;
           margin: 15px 0;
           font-size: 1.4em; }
-  body .favorites {
-    /*background: #2F4F4F;*/
-    background-color: rgba(0, 0, 0, 0.6); }
+      body .event-page .article .favorite {
+        text-align: center; }
+        body .event-page .article .favorite button {
+          margin: 0 auto; }
+  body .favorites-page {
+    background: #D55038; }
+    body .favorites-page .event-list {
+      background: none; }
+      body .favorites-page .event-list .list {
+        padding-right: 0; }
+        body .favorites-page .event-list .list.ng-enter {
+          -webkit-animation: fadeInLeft 1s;
+          animation: fadeInLeft 1s; }
+        body .favorites-page .event-list .list.ng-enter-stagger {
+          -webkit-animation-delay: 200ms;
+          animation-delay: 200ms;
+          /* override to make sure it's not inherited from other styles */
+          -webkit-animation-duration: 0;
+          animation-duration: 0; }
+    body .favorites-page .links button {
+      width: 100%; }

@@ -25,8 +25,8 @@
         <ion-list class="event-list">
             <div class="list card" ng-repeat="event in events">
                 <div class="item item-avatar" ng-click="renderEvent(event)">
-                    <img  ng-if="event.fields.image_thumb" src="{{event.fields.image_thumb}}">
-                    <img  ng-if="!event.fields.image_thumb" src="img/ionic.png">
+                    <img ng-if="event.fields.image_thumb" src="{{event.fields.image_thumb}}">
+                    <img ng-if="!event.fields.image_thumb" src="img/ionic.png">
                     <h2>{{event.fields.title}}</h2>
                     <p>le {{event.fields.date_start | moment : 'format' : 'DD/MM/YY à HH'}}h{{event.fields.date_start | moment : 'format' : 'ss'}}</p>
                 </div>
@@ -36,10 +36,10 @@
                 </div>
                 <div class="item item-divider row links">
                     <div class="col col-50">
-                        <ion-checkbox ng-model="filter.blue">Participer</ion-checkbox>
+                        <ion-checkbox ng-model="event.favorite" ng-click="addToFavorite(event)">Favoris</ion-checkbox>
                     </div>
                     <div class="col col-50">
-                        <a class="button icon-right ion-chevron-right button-energized" ng-click="renderEvent(event)">En savoir plus</a>
+                        <a class="button icon-right ion-chevron-right button-energized" ng-click="renderEvent(event)">Voir</a>
                     </div>
                 </div>
             </div>

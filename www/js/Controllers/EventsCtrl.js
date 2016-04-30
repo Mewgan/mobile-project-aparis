@@ -1,9 +1,14 @@
-app.controller('EventsCtrl',function($scope,$http,$ionicLoading,$ionicPopup,$state,$ionicScrollDelegate) {
+app.controller('EventsCtrl',function($scope,$http,$ionicLoading,$ionicPopup,$localStorage,$state,$ionicScrollDelegate) {
 
     $scope.events = [];
     /* Methods */
     $scope.renderEvent = function(event){
         $state.go('app.event',{event:angular.toJson(event)});
+    };
+
+    $scope.addToFavorite = function(event){
+        $localStorage.addObject('my_events',event);
+        $localStorage.add('my_events_ids',event.recordid);
     };
 
     $scope.scrollTop = function() {
@@ -16,10 +21,15 @@ app.controller('EventsCtrl',function($scope,$http,$ionicLoading,$ionicPopup,$sta
     };
 
     $scope.loadEvents = function() {
-        $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&start="+$scope.events.length)
+        $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&rows=6&start="+$scope.events.length)
             .success(function (response) {
-                for (var i = 0; i < response.records.length; i++)
-                    $scope.events.push(response.records[i]);
+                for (var i = 0; i < response.records.length; i++) {
+                    var event = response.records[i];
+                    event.favorite = false;
+                    if(typeof $localStorage.get('my_events_ids') !== 'undefined')
+                        event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
+                    $scope.events.push(event);
+                }
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }).error(function () {
                 $ionicPopup.alert({
@@ -38,7 +48,7 @@ app.controller('EventsCtrl',function($scope,$http,$ionicLoading,$ionicPopup,$sta
 
         $scope.share = function(event){
             $cordovaSocialSharing
-                .share(event.fields.free_text, event.fields.title, event.fields.image, event.fields.link) // Share via native share sheet
+                .share(event.fields.description, event.fields.title, event.fields.image, event.fields.link) // Share via native share sheet
                 .then(function(result) {
                     if(result.completed)
                         $ionicPopup.alert({
@@ -58,7 +68,7 @@ app.controller('EventsCtrl',function($scope,$http,$ionicLoading,$ionicPopup,$sta
                 });
         };
 
-        $scope.initialize = function(lat,lng) {
+        $scope.mapInitialize = function(lat,lng) {
             var myLatlng = new google.maps.LatLng(lat,lng);
 
             var mapOptions = {
@@ -76,5 +86,5 @@ app.controller('EventsCtrl',function($scope,$http,$ionicLoading,$ionicPopup,$sta
             });
         };
 
-        google.maps.event.addDomListener(window, 'load', $scope.initialize($scope.event.fields.latlon[0],$scope.event.fields.latlon[1]));
+        google.maps.event.addDomListener(window, 'load', $scope.mapInitialize($scope.event.fields.latlon[0],$scope.event.fields.latlon[1]));
 });

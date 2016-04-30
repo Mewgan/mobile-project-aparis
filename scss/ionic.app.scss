@@ -60,6 +60,13 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     }
   }
 }
+.left-sidebar {
+  background: #65999D;
+  .item-complex .item-content {
+    background-color: #65999D !important;
+    color: white;
+  }
+}
 
 body{
   font-family: 'Open Sans','arial';
@@ -71,7 +78,7 @@ body{
     background-size: cover;
   }*/
   .has-tabs-top{
-    top: 64px !important;
+    top: 85px !important;
   }
   .back-button{
     background: none;
@@ -141,8 +148,20 @@ body{
       margin: 10px;
     }
     .event-list {
-      .list:last-child {
-        background: #EBE8E8;
+      .list{
+        padding-right: 0;
+        &.ng-enter {
+          -webkit-animation: fadeInLeft 1s;
+          animation: fadeInLeft 1s;
+        }
+        &.ng-enter-stagger {
+          -webkit-animation-delay:200ms;
+          animation-delay:200ms;
+
+          /* override to make sure it's not inherited from other styles */
+          -webkit-animation-duration:0;
+          animation-duration:0;
+        }
       }
       .links{
         .item{
@@ -332,10 +351,38 @@ body{
           font-size: 1.4em;
         }
       }
+      .favorite{
+        text-align: center;
+        button{
+          margin: 0 auto;
+        }
+      }
     }
   }
-  .favorites{
-    /*background: #2F4F4F;*/
-    background-color: rgba(0, 0, 0, 0.6);
+  .favorites-page{
+    background: #D55038;
+    .event-list {
+      background: none;
+      .list{
+        padding-right: 0;
+        &.ng-enter {
+          -webkit-animation: fadeInLeft 1s;
+          animation: fadeInLeft 1s;
+        }
+        &.ng-enter-stagger {
+          -webkit-animation-delay:200ms;
+          animation-delay:200ms;
+
+          /* override to make sure it's not inherited from other styles */
+          -webkit-animation-duration:0;
+          animation-duration:0;
+        }
+      }
+    }
+    .links{
+      button{
+        width: 100%;
+      }
+    }
   }
 }

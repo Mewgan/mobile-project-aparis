@@ -24,10 +24,6 @@
                 <div id="carte" data-tap-disabled="true" style="width:100%; height:100%"></div>
             </div>
         </div>
-       <!-- <ion-refresher
-                pulling-text="Tirer pour rafraîchir..."
-                on-refresh="refresh()">
-        </ion-refresher>-->
         <ion-list class="event-list">
             <div ng-if="isNothing == 0"  class="list">
                 <div class="card">
@@ -49,10 +45,10 @@
                 </div>
                 <div class="item item-divider row links">
                     <div class="col col-50">
-                        <ion-checkbox ng-model="filter.blue">Favoris</ion-checkbox>
+                        <ion-checkbox ng-model="event.favorite" ng-click="addToFavorite(event)">Favoris</ion-checkbox>
                     </div>
                     <div class="col col-50">
-                        <a class="button icon-right ion-chevron-right button-calm" ng-click="renderEvent(event)">En savoir plus</a>
+                        <a class="button icon-right ion-chevron-right button-energized" ng-click="renderEvent(event)">Voir</a>
                     </div>
                 </div>
             </div>

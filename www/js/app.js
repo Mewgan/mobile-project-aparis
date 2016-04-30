@@ -41,11 +41,30 @@ var app = angular.module('app', ['ionic','ngCordova'])
             get: function (key, defaultValue) {
                 return $window.localStorage[key] || defaultValue;
             },
+            add: function(key,value){
+                var tab = [];
+                if(typeof $window.localStorage[key] !== 'undefined')
+                    tab = JSON.parse($window.localStorage[key]);
+                tab.push(value);
+                $window.localStorage[key] = JSON.stringify(tab);
+            },
             setObject: function (key, value) {
                 $window.localStorage[key] = JSON.stringify(value);
             },
             getObject: function (key) {
                 return JSON.parse($window.localStorage[key] || '{}');
+            },
+            addObject: function(key,value){
+                var tab = [];
+                if(typeof $window.localStorage[key] !== 'undefined')
+                    tab = JSON.parse($window.localStorage[key]|| '{}');
+                tab.push(JSON.stringify(value));
+                $window.localStorage[key] = JSON.stringify(tab);
+            },
+            remove: function(key,index){
+                var tab = JSON.parse($window.localStorage[key]|| '{}');
+                tab.splice(index,1);
+                $window.localStorage[key] = JSON.stringify(tab);
             }
         }
     }])
@@ -269,7 +288,17 @@ var app = angular.module('app', ['ionic','ngCordova'])
                 url: '/favorites',
                 views: {
                     'favorites': {
-                        templateUrl: 'templates/favorites.html'
+                        templateUrl: 'templates/favorites.html',
+                        controller: 'FavoriteCtrl'
+                    }
+                }
+            })
+            .state('app.favorite',{
+                url: '/favorite/:event',
+                views: {
+                    'favorites' :{
+                        templateUrl: 'templates/event.html',
+                        controller: 'EventCtrl'
                     }
                 }
             })

@@ -30,7 +30,7 @@ app.
         };
 
     })
-    .controller('SearchCtrl',function($http,$scope,$ionicLoading,$state,$stateParams,$ionicPopup,$ionicScrollDelegate){
+    .controller('SearchCtrl',function($http,$scope,$ionicLoading,$state,$stateParams,$ionicPopup,$ionicScrollDelegate,$localStorage){
 
         $scope.results = [];
 
@@ -42,6 +42,11 @@ app.
 
         $scope.renderEvent = function(event){
             $state.go('app.single',{event:angular.toJson(event)});
+        };
+
+        $scope.addToFavorite = function(event){
+            $localStorage.addObject('my_events',event);
+            $localStorage.add('my_events_ids',event.recordid);
         };
 
         $scope.scrollTop = function() {
@@ -63,13 +68,18 @@ app.
                 uri += "date_start >="+moment($stateParams.date).format('DD/MM/YYYY');
 
         $scope.load = function() {
-            $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&start=" + $scope.results.length+"&q="+uri)
+            $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&rows=6&start=" + $scope.results.length+"&q="+uri)
                 .success(function (response) {
                     $ionicLoading.hide();
                     $scope.isNothing = response.records.length;
                     if (response.records.length != 10)$scope.loading = false;
-                    for (var i = 0; i < response.records.length; i++)
-                        $scope.results.push(response.records[i]);
+                    for (var i = 0; i < response.records.length; i++) {
+                        var event = response.records[i];
+                        event.favorite = false;
+                        if (typeof $localStorage.get('my_events_ids') !== 'undefined')
+                            event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
+                        $scope.results.push(event);
+                    }
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }).error(function () {
                     $ionicLoading.hide();
@@ -83,7 +93,7 @@ app.
                 });
         };
     })
-    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$state,$ionicPlatform,$http,$cordovaGeolocation,$geoLocation,$stateParams,$ionicPopup){
+    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$localStorage,$state,$ionicPlatform,$http,$cordovaGeolocation,$geoLocation,$stateParams,$ionicPopup){
 
         $scope.results = [];
 
@@ -95,6 +105,11 @@ app.
 
         $scope.renderEvent = function(event){
             $state.go('app.single',{event:angular.toJson(event)});
+        };
+
+        $scope.addToFavorite = function(event){
+            $localStorage.addObject('my_events',event);
+            $localStorage.add('my_events_ids',event.recordid);
         };
 
         $scope.scrollTop = function() {
@@ -146,15 +161,20 @@ app.
                 query = $stateParams.query+" AND ";
             $ionicPlatform.ready(function () {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    var url = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&sort=updated_at&facet=date_end&start=" + $scope.results.length + "&geofilter.distance=" + position.coords.latitude + "," + position.coords.longitude + ","+$stateParams.radius+"&q="+query+"date_start >="+date;
+                    var url = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&sort=updated_at&facet=date_end&rows=6&start=" + $scope.results.length + "&geofilter.distance=" + position.coords.latitude + "," + position.coords.longitude + ","+$stateParams.radius+"&q="+query+"date_start >="+date;
                     $http.get(url).success(function (response) {
                         $ionicLoading.hide();
                         $scope.isNothing = response.records.length;
                         $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
                         google.maps.event.addDomListener(window, 'load', $scope.initialize(position.coords.latitude,position.coords.longitude));
                         if(response.records.length != 10)$scope.loading= false;
-                        for (var i = 0; i < response.records.length; i++)
-                            $scope.results.push(response.records[i]);
+                        for (var i = 0; i < response.records.length; i++) {
+                            var event = response.records[i];
+                            event.favorite = false;
+                            if (typeof $localStorage.get('my_events_ids') !== 'undefined')
+                                event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
+                            $scope.results.push(event);
+                        }
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                     }).error(function () {
                         $ionicLoading.hide();
