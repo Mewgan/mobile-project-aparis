@@ -216,6 +216,20 @@ var app = angular.module('app', ['ionic','ngCordova'])
     })
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
+            .state('start',{
+                url: '/start',
+                abstract: true,
+                templateUrl: 'templates/menu-start.html'
+             })
+            .state('start.home',{
+                url: '/home',
+                views: {
+                    'start' :{
+                        templateUrl: 'templates/start.html',
+                        controller: 'IntroCtrl'
+                    }
+                }
+            })
             .state('app', {
                 url: '/app',
                 abstract: true,
@@ -304,6 +318,10 @@ var app = angular.module('app', ['ionic','ngCordova'])
             })
             ;
 
-        // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/home');
+        if (window.localStorage['logged']){
+            $urlRouterProvider.otherwise('/app/home');
+        }else{
+            $urlRouterProvider.otherwise('/start/home');
+        }
+
     });

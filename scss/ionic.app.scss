@@ -43,6 +43,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   padding-top: 5px;
 }
 
+[nav-view="cached"], [nav-bar="cached"]{
+  display: none !important;
+}
+
 .popup-container.active .popup{
   background: #DE4646;
   border-radius: 10px;
@@ -87,6 +91,60 @@ body{
     margin: 0 !important;
     i{
       font-size: 2em;
+    }
+  }
+
+  .start-page{
+    .slider {
+      height: 100%;
+      .first-slide{
+        background-color: #5E2659;
+        color: white;
+        h3{
+          color: white;
+        }
+        #logo{
+          img{
+            width: 100%;
+            padding: 25px;
+          }
+        }
+      }
+      .second-slide{
+        background-color: #2E8B57;
+      }
+      .third-slide{
+        background-color: #A52A2A;
+      }
+    }
+    .slider-slide {
+      padding-top: 80px;
+      color: #000;
+      background-color: #fff;
+      text-align: center;
+      font-weight: 300;
+    }
+
+    #logo {
+      margin: 30px 0px;
+    }
+
+    #list {
+      width: 170px;
+      margin: 30px auto;
+      font-size: 20px;
+    }
+    #list ol {
+      margin-top: 30px;
+    }
+    #list ol li {
+      text-align: left;
+      list-style: decimal;
+      margin: 10px 0px;
+    }
+
+    .button.ng-hide{
+      display:none;
     }
   }
   .home-page {

@@ -1,0 +1,54 @@
+<ion-view>
+    <ion-nav-buttons side="left">
+        <button class="button button-energized button-clear no-animation"
+                ng-click="startApp()" ng-show="!slideIndex">
+            Passer
+        </button>
+        <button class="button button-energized button-clear no-animation"
+                ng-click="previous()" ng-show="slideIndex > 0">
+            Précédent
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-energized button-clear no-animation"
+                ng-click="next()" ng-show="slideIndex != 2">
+            Suivant
+        </button>
+        <button class="button button-energized button-clear no-animation"
+                ng-click="startApp()" ng-show="slideIndex == 2">
+            Commencer
+        </button>
+    </ion-nav-buttons>
+    <ion-slide-box on-slide-changed="slideChanged(index)">
+        <ion-slide class="first-slide">
+            <h3>Merci d'avoir choisit cette application !</h3>
+            <div id="logo">
+                <img src="img/logoWhite.png"  alt="Logo A Paris"/>
+            </div>
+            <p>
+                Nous avons travaillé super dur pour vous rendre heureux .
+            </p>
+            <p>
+                But if you are angry, too bad.
+            </p>
+        </ion-slide>
+        <ion-slide class="second-slide">
+            <h3>Using Awesome</h3>
+
+            <div id="list">
+                <h5>Just three steps:</h5>
+                <ol>
+                    <li>Be awesome</li>
+                    <li>Stay awesome</li>
+                    <li>There is no step 3</li>
+                </ol>
+            </div>
+        </ion-slide>
+        <ion-slide class="third-slide">
+            <h3>Any questions?</h3>
+            <p>
+                Too bad!
+            </p>
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>
