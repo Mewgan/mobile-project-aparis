@@ -99,7 +99,7 @@ app.
                 });
         };
     })
-    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$localStorage,$state,$ionicPlatform,$http,$geoLocation,$stateParams,$ionicPopup){
+    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$localStorage,$state,$ionicPlatform,$http,$cordovaGeolocation,$stateParams,$ionicPopup){
 
         $scope.results = [];
 
