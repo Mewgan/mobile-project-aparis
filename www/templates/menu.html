@@ -1,6 +1,6 @@
 <ion-side-menus enable-menu-with-back-views="true">
     <ion-side-menu-content>
-
+        <a class="toggleIcon" ng-click="toggleLeftSideMenu()" ng-controller="MainCtrl"><i class="icon ion-navicon-round"></i></a>
         <ion-tabs class="tabs-striped tabs-top tabs-background-none tabs-color-light">
 
             <ion-tab icon="icon ion-ios-world" ui-sref="app.events">
@@ -14,6 +14,9 @@
             <ion-tab icon="icon ion-ios-star" ui-sref="app.favorites">
                 <ion-nav-view name="favorites" class="slide-left-right"></ion-nav-view>
             </ion-tab>
+            <ion-tab class="tab-hidden" icon="icon ion-ios-star" ui-sref="app.news">
+                <ion-nav-view name="news" class="slide-left-right"></ion-nav-view>
+            </ion-tab>
 
         </ion-tabs>
 
@@ -24,6 +27,9 @@
             <ion-list>
                 <ion-item menu-close ui-sref="app.home">
                     Accueil
+                </ion-item>
+                <ion-item menu-close ui-sref="app.news">
+                    Actualités
                 </ion-item>
                 <ion-item menu-close ui-sref="app.events">
                     Évenements

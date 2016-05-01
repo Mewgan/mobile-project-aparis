@@ -1,0 +1,39 @@
+<ion-view view-title="Event" class="app event-page news-single-page" hide-nav-bar="true">
+    <ion-content>
+        <div class="row row-top header-title">
+            <div class="col sub-header">
+                <button class="back-button" ng-click="$ionicGoBack()"><i class="icon ion-arrow-left-c"></i></button>
+            </div>
+        </div>
+        <div class="article">
+            <div class="article-head">
+                <div class="thumbnail" ng-if="news.media[0].path">
+                    <div class="overlap"></div>
+                    <img class="animated zoomIn" src="{{news.media[0].path}}"  alt="media"/>
+                </div>
+                <h1 ng-class="news.media[0].path ? 'has-image' : 'no-image'" ng-bind-html="(news.nom | html_entity_decode)"></h1>
+            </div>
+            <div class="row info" ng-show="news.created">
+                <em class="card"><i class="icon ion-calendar"></i>{{news.created | moment : 'format' : 'DD/MM/YY'}}</em>
+            </div>
+            <div class="row info" ng-show="news.accessType">
+                <em ng-bind-html="(news.accessType | html_entity_decode)" class="card"></em>
+            </div>
+            <div class="row info" ng-show="news.adresse">
+                <em ng-bind-html="(news.adresse | html_entity_decode)" class="card"></em>
+            </div>
+            <div class="row description" ng-show="news.description">
+                <p ng-bind-html="(news.description | html_entity_decode)"></p>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
+<script>
+    $('.tab-nav').hide();
+    $('.toggleIcon').hide();
+    $('.back-button').on('click',function(){
+        $('.tab-nav').show();
+        $('.toggleIcon').show();
+    });
+</script>

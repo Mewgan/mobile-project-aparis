@@ -1,33 +1,62 @@
-app.controller('FavoriteCtrl',function($scope,$localStorage,$ionicScrollDelegate,$state) {
+app
+    .factory('Favorite',function($state,$localStorage){
 
-    $scope.events = [];
+        var events = [];
 
-    $scope.renderEvent = function(event){
-        $state.go('app.favorite',{event:angular.toJson(event)});
-    };
+        return {
+            instance: function(){
+                return this;
+            },
+            show : function(event){
+                $state.go('app.favorite',{event:angular.toJson(event)});
+            },
+            remove: function(index){
+                events.splice(index,1);
+                $localStorage.remove('my_events',index);
+                $localStorage.remove('my_events_ids',index);
+                return true;
+            },
+            all: function(){
+                var all = $localStorage.getObject('my_events').slice(events.length,events.length+6);
+                for (var i = 0; i < all.length; i++) {
+                    var event = JSON.parse(all[i]);
+                    event.is_before = (moment(event.fields.date_start).isBefore(new Date()))?true:false;
+                    events.push(event);
+                }
+                return events;
+            },
+            count: function(){
+                return events.length;
+            },
+            refresh: function(){
+                events = [];
+            },
+            done: function(index){
+                var all = $localStorage.getObject('my_events');
+                var event = JSON.parse(all[index]);
+                event.done = (typeof event.done !== 'undefined' && event.done)?false:true;
+                all[index] = JSON.stringify(event);
+                $localStorage.setObject('my_events',all);
+            }
+        }
+    })
+    .controller('FavoriteCtrl',function($scope,$ionicScrollDelegate,Favorite) {
 
-    $scope.deleteEvent = function(index){
-        $scope.events.splice(index,1);
-        $localStorage.remove('my_events',index);
-        $localStorage.remove('my_events_ids',index);
-    };
+        $scope.favorite = Favorite.instance();
 
-    $scope.refresh = function(){
-        $scope.events = [];
-        $scope.loadEvents();
-    };
+        $scope.refresh = function(){
+            Favorite.refresh();
+            $scope.loadEvents();
+        };
 
+        $scope.scrollTop = function() {
+            $ionicScrollDelegate.scrollTop();
+        };
 
-    $scope.scrollTop = function() {
-        $ionicScrollDelegate.scrollTop();
-    };
+        $scope.loadEvents = function(){
+            Favorite.all();
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+            $scope.$broadcast('scroll.refreshComplete');
+        };
 
-    $scope.loadEvents = function(){
-        var events = $localStorage.getObject('my_events').slice($scope.events.length,$scope.events.length+6);
-        for (var i = 0; i < events.length; i++)
-            $scope.events.push(JSON.parse(events[i]));
-        $scope.$broadcast('scroll.infiniteScrollComplete');
-        $scope.$broadcast('scroll.refreshComplete');
-    };
-
-});
+    });

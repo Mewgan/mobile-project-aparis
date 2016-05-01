@@ -43,7 +43,20 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   padding-top: 5px;
 }
 
+.toggleIcon{
+  position: absolute;
+  z-index: 999;
+  color: white;
+  font-size: 3em;
+  left: -13px;
+  top: 16px;
+}
+
 [nav-view="cached"], [nav-bar="cached"]{
+  display: none !important;
+}
+
+.tab-hidden{
   display: none !important;
 }
 
@@ -75,12 +88,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 body{
   font-family: 'Open Sans','arial';
   color: white;
- /* .view-container{
-    background: url('../img/paris-tour-eiffel-nuit-resize.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-  }*/
   .has-tabs-top{
     top: 85px !important;
   }
@@ -97,24 +104,27 @@ body{
   .start-page{
     .slider {
       height: 100%;
+      .first-slide,.second-slide,.third-slide{
+        h3{
+          margin: 0 20px;
+          color: #FFFFFF;
+        }
+        img{
+          width: 40%;
+          margin: 20px 0;
+        }
+        .list{
+          margin: 0 10px;
+        }
+      }
       .first-slide{
         background-color: #5E2659;
-        color: white;
-        h3{
-          color: white;
-        }
-        #logo{
-          img{
-            width: 100%;
-            padding: 25px;
-          }
-        }
       }
       .second-slide{
-        background-color: #2E8B57;
+        background-color: #FC9C17;
       }
       .third-slide{
-        background-color: #A52A2A;
+        background-color: #D55038;
       }
     }
     .slider-slide {
@@ -149,9 +159,9 @@ body{
   }
   .home-page {
     background: #5E2659;
-   /* background-color: rgba(0, 0, 0, 0.6);*/
     .intro-text{
       color:$txt-color;
+      padding: 0 10px;
     }
     .icon{
       float: left;
@@ -197,7 +207,7 @@ body{
       font-size: 2.5em;
     }
   }
-  .events-page,.result-page,.search-page{
+  .events-page,.result-page,.search-page,.news-page{
       background: #FC9C17;
     .header-title h4{
       text-align: center;
@@ -219,6 +229,14 @@ body{
           /* override to make sure it's not inherited from other styles */
           -webkit-animation-duration:0;
           animation-duration:0;
+        }
+        .to-come{
+          color: green;
+          float: right;
+        }
+        .done{
+          color: red;
+          float: right;
         }
       }
       .links{
@@ -246,6 +264,9 @@ body{
       text-align: center;
       margin-top: 10px;
     }
+  }
+  .news-page{
+    background-color: #8594C5;
   }
   .result-page{
     background: #FC9C17;
@@ -300,12 +321,12 @@ body{
     }
   }
   .event-page{
-    background: #50AF8F;
+    background: #74B674;
     .back-button {
       border: none;
       color: white;
       margin: 0 !important;
-      background: #50AF8F;
+      background: #74B674;
       border-radius: 100%;
       width: 40px;
       height: 40px;
@@ -367,7 +388,7 @@ body{
         padding: 10px;
         em{
           font-size: 1.2em;
-          color: #50AF8F;
+          color: #74B674;
           padding: 10px;
           margin: 0;
           i{
@@ -415,6 +436,14 @@ body{
           margin: 0 auto;
         }
       }
+      .reminder{
+        margin: 0 auto;
+      }
+    }
+  }
+  .news-single-page{
+    .article .description{
+      height: auto;
     }
   }
   .favorites-page{
@@ -434,6 +463,16 @@ body{
           /* override to make sure it's not inherited from other styles */
           -webkit-animation-duration:0;
           animation-duration:0;
+        }
+        .to-come{
+          color: green;
+          float: right;
+          margin-top: 15px;
+        }
+        .done{
+          color: red;
+          float: right;
+          margin-top: 15px;
         }
       }
     }

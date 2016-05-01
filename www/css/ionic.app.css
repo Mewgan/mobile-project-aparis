@@ -9750,7 +9750,18 @@ a.button {
   top: 0;
   padding-top: 5px; }
 
+.toggleIcon {
+  position: absolute;
+  z-index: 999;
+  color: white;
+  font-size: 3em;
+  left: -13px;
+  top: 16px; }
+
 [nav-view="cached"], [nav-bar="cached"] {
+  display: none !important; }
+
+.tab-hidden {
   display: none !important; }
 
 .popup-container.active .popup {
@@ -9773,13 +9784,7 @@ a.button {
 
 body {
   font-family: 'Open Sans','arial';
-  color: white;
-  /* .view-container{
-    background: url('../img/paris-tour-eiffel-nuit-resize.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-  }*/ }
+  color: white; }
   body .has-tabs-top {
     top: 85px !important; }
   body .back-button {
@@ -9791,18 +9796,20 @@ body {
       font-size: 2em; }
   body .start-page .slider {
     height: 100%; }
+    body .start-page .slider .first-slide h3, body .start-page .slider .second-slide h3, body .start-page .slider .third-slide h3 {
+      margin: 0 20px;
+      color: #FFFFFF; }
+    body .start-page .slider .first-slide img, body .start-page .slider .second-slide img, body .start-page .slider .third-slide img {
+      width: 40%;
+      margin: 20px 0; }
+    body .start-page .slider .first-slide .list, body .start-page .slider .second-slide .list, body .start-page .slider .third-slide .list {
+      margin: 0 10px; }
     body .start-page .slider .first-slide {
-      background-color: #5E2659;
-      color: white; }
-      body .start-page .slider .first-slide h3 {
-        color: white; }
-      body .start-page .slider .first-slide #logo img {
-        width: 100%;
-        padding: 25px; }
+      background-color: #5E2659; }
     body .start-page .slider .second-slide {
-      background-color: #2E8B57; }
+      background-color: #FC9C17; }
     body .start-page .slider .third-slide {
-      background-color: #A52A2A; }
+      background-color: #D55038; }
   body .start-page .slider-slide {
     padding-top: 80px;
     color: #000;
@@ -9824,10 +9831,10 @@ body {
   body .start-page .button.ng-hide {
     display: none; }
   body .home-page {
-    background: #5E2659;
-    /* background-color: rgba(0, 0, 0, 0.6);*/ }
+    background: #5E2659; }
     body .home-page .intro-text {
-      color: #E9FF00; }
+      color: #E9FF00;
+      padding: 0 10px; }
     body .home-page .icon {
       float: left; }
     body .home-page .scroll-content {
@@ -9859,29 +9866,35 @@ body {
       top: 20px;
       left: 20px;
       font-size: 2.5em; }
-  body .events-page, body .result-page, body .search-page {
+  body .events-page, body .result-page, body .search-page, body .news-page {
     background: #FC9C17; }
-    body .events-page .header-title h4, body .result-page .header-title h4, body .search-page .header-title h4 {
+    body .events-page .header-title h4, body .result-page .header-title h4, body .search-page .header-title h4, body .news-page .header-title h4 {
       text-align: center;
       color: white;
       font-family: "open sans";
       margin: 10px; }
-    body .events-page .event-list .list, body .result-page .event-list .list, body .search-page .event-list .list {
+    body .events-page .event-list .list, body .result-page .event-list .list, body .search-page .event-list .list, body .news-page .event-list .list {
       padding-right: 0; }
-      body .events-page .event-list .list.ng-enter, body .result-page .event-list .list.ng-enter, body .search-page .event-list .list.ng-enter {
+      body .events-page .event-list .list.ng-enter, body .result-page .event-list .list.ng-enter, body .search-page .event-list .list.ng-enter, body .news-page .event-list .list.ng-enter {
         -webkit-animation: fadeInLeft 1s;
         animation: fadeInLeft 1s; }
-      body .events-page .event-list .list.ng-enter-stagger, body .result-page .event-list .list.ng-enter-stagger, body .search-page .event-list .list.ng-enter-stagger {
+      body .events-page .event-list .list.ng-enter-stagger, body .result-page .event-list .list.ng-enter-stagger, body .search-page .event-list .list.ng-enter-stagger, body .news-page .event-list .list.ng-enter-stagger {
         -webkit-animation-delay: 200ms;
         animation-delay: 200ms;
         /* override to make sure it's not inherited from other styles */
         -webkit-animation-duration: 0;
         animation-duration: 0; }
-    body .events-page .event-list .links .item, body .result-page .event-list .links .item, body .search-page .event-list .links .item {
+      body .events-page .event-list .list .to-come, body .result-page .event-list .list .to-come, body .search-page .event-list .list .to-come, body .news-page .event-list .list .to-come {
+        color: green;
+        float: right; }
+      body .events-page .event-list .list .done, body .result-page .event-list .list .done, body .search-page .event-list .list .done, body .news-page .event-list .list .done {
+        color: red;
+        float: right; }
+    body .events-page .event-list .links .item, body .result-page .event-list .links .item, body .search-page .event-list .links .item, body .news-page .event-list .links .item {
       padding: 13px 0px 13px 50px; }
-    body .events-page .event-list .links a, body .result-page .event-list .links a, body .search-page .event-list .links a {
+    body .events-page .event-list .links a, body .result-page .event-list .links a, body .search-page .event-list .links a, body .news-page .event-list .links a {
       width: 100%; }
-    body .events-page .scroll-to-top, body .result-page .scroll-to-top, body .search-page .scroll-to-top {
+    body .events-page .scroll-to-top, body .result-page .scroll-to-top, body .search-page .scroll-to-top, body .news-page .scroll-to-top {
       position: fixed;
       right: 10px;
       bottom: 10px;
@@ -9890,11 +9903,13 @@ body {
       border-radius: 41px;
       border: none;
       color: white; }
-    body .events-page .center, body .result-page .center, body .search-page .center {
+    body .events-page .center, body .result-page .center, body .search-page .center, body .news-page .center {
       display: block;
       width: 100%;
       text-align: center;
       margin-top: 10px; }
+  body .news-page {
+    background-color: #8594C5; }
   body .result-page {
     background: #FC9C17; }
     body .result-page .sub-header {
@@ -9932,12 +9947,12 @@ body {
       body .search-page .search-button i {
         float: right; }
   body .event-page {
-    background: #50AF8F; }
+    background: #74B674; }
     body .event-page .back-button {
       border: none;
       color: white;
       margin: 0 !important;
-      background: #50AF8F;
+      background: #74B674;
       border-radius: 100%;
       width: 40px;
       height: 40px; }
@@ -9988,7 +10003,7 @@ body {
         padding: 10px; }
         body .event-page .article .info em {
           font-size: 1.2em;
-          color: #50AF8F;
+          color: #74B674;
           padding: 10px;
           margin: 0; }
           body .event-page .article .info em i {
@@ -10024,6 +10039,10 @@ body {
         text-align: center; }
         body .event-page .article .favorite button {
           margin: 0 auto; }
+      body .event-page .article .reminder {
+        margin: 0 auto; }
+  body .news-single-page .article .description {
+    height: auto; }
   body .favorites-page {
     background: #D55038; }
     body .favorites-page .event-list {
@@ -10039,5 +10058,13 @@ body {
           /* override to make sure it's not inherited from other styles */
           -webkit-animation-duration: 0;
           animation-duration: 0; }
+        body .favorites-page .event-list .list .to-come {
+          color: green;
+          float: right;
+          margin-top: 15px; }
+        body .favorites-page .event-list .list .done {
+          color: red;
+          float: right;
+          margin-top: 15px; }
     body .favorites-page .links button {
       width: 100%; }

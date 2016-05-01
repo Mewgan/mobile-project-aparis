@@ -1,0 +1,24 @@
+<ion-view view-title="Actualités"  class="app news-page" hide-nav-bar="true">
+    <ion-content>
+        <div class="row row-top header-title">
+            <div class="col">
+                <h4>Actualités</h4>
+            </div>
+        </div>
+        <ion-list class="news-list">
+            <div class="card" ng-repeat="news in allNews" ng-click="renderNews(news.idactivites)">
+                <div class="item item-avatar" ng-click="favorite.show(event)">
+                    <img src="img/ionic.png">
+                    <h2 ng-bind-html="(news.nom | html_entity_decode)"></h2>
+                    <p>{{news.created | moment : 'format' : 'DD/MM/YY HH'}}h{{news.created | moment : 'format' : 'ss'}}</p>
+                </div>
+                <div class="item item-body">
+                    <p ng-bind-html="(news.small_description | html_entity_decode)"></p>
+                </div>
+            </div>
+        </ion-list>
+        <ion-spinner ng-hide="allNews.length == 0"></ion-spinner>
+        <ion-infinite-scroll on-infinite="load()" distance="1%"></ion-infinite-scroll>
+    </ion-content>
+    <button ng-hide="favorite.count() <= 10" ng-click="scrollTop()" class="icon ion-arrow-up-c scroll-to-top"></button>
+</ion-view>

@@ -1,54 +1,45 @@
 <ion-view>
     <ion-nav-buttons side="left">
-        <button class="button button-energized button-clear no-animation"
+        <button class="button button-light button-clear no-animation"
                 ng-click="startApp()" ng-show="!slideIndex">
             Passer
         </button>
-        <button class="button button-energized button-clear no-animation"
+        <button class="button button-light button-clear no-animation"
                 ng-click="previous()" ng-show="slideIndex > 0">
             Précédent
         </button>
     </ion-nav-buttons>
     <ion-nav-buttons side="right">
-        <button class="button button-energized button-clear no-animation"
+        <button class="button button-light button-clear no-animation"
                 ng-click="next()" ng-show="slideIndex != 2">
             Suivant
         </button>
-        <button class="button button-energized button-clear no-animation"
+        <button class="button button-light button-clear no-animation"
                 ng-click="startApp()" ng-show="slideIndex == 2">
             Commencer
         </button>
     </ion-nav-buttons>
     <ion-slide-box on-slide-changed="slideChanged(index)">
         <ion-slide class="first-slide">
-            <h3>Merci d'avoir choisit cette application !</h3>
-            <div id="logo">
-                <img src="img/logoWhite.png"  alt="Logo A Paris"/>
+            <h3>Trouver les événements à Paris</h3>
+            <img src="img/home.png" alt="home"/>
+            <div class="list">
+                Touver autour de vous ou faites une recherche avancée
             </div>
-            <p>
-                Nous avons travaillé super dur pour vous rendre heureux .
-            </p>
-            <p>
-                But if you are angry, too bad.
-            </p>
         </ion-slide>
         <ion-slide class="second-slide">
-            <h3>Using Awesome</h3>
-
-            <div id="list">
-                <h5>Just three steps:</h5>
-                <ol>
-                    <li>Be awesome</li>
-                    <li>Stay awesome</li>
-                    <li>There is no step 3</li>
-                </ol>
+            <h3>Lister les derniers événements à venir</h3>
+            <img src="img/events.png" alt="favorite"/>
+            <div class="list">
+                Découvrez l'agenda complet des évènements à Paris à travers notre application
             </div>
         </ion-slide>
         <ion-slide class="third-slide">
-            <h3>Any questions?</h3>
-            <p>
-                Too bad!
-            </p>
+            <h3>Ajouter un événement à vos favoris</h3>
+            <img src="img/favorite.png" alt="favorite"/>
+            <div class="list">
+                Ajouter un événement à vos favoris pour le consulter plus tard
+            </div>
         </ion-slide>
     </ion-slide-box>
 </ion-view>

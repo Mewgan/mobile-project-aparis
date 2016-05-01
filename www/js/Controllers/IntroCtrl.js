@@ -3,7 +3,7 @@ app
 
         // Called to navigate to the main app
         $scope.startApp = function() {
-            $localStorage.set('logged',true);
+            $localStorage.set('started',true);
             $state.go('app.home');
         };
         $scope.next = function() {

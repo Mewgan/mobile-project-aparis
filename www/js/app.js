@@ -29,6 +29,10 @@ var app = angular.module('app', ['ionic','ngCordova'])
                         });
                 }
             }
+            $ionicPlatform.onHardwareBackButton(function() {
+                event.preventDefault();
+                event.stopPropagation();
+            });
             moment.locale('fr');
         });
     })
@@ -68,23 +72,6 @@ var app = angular.module('app', ['ionic','ngCordova'])
             }
         }
     }])
-    .factory('$geoLocation', function ($localStorage) {
-        return {
-            setGeolocation: function (latitude, longitude) {
-                var position = {
-                    latitude: latitude,
-                    longitude: longitude
-                };
-                $localStorage.setObject('geoLocation', position)
-            },
-            getGeolocation: function () {
-                return glocation = {
-                    lat: $localStorage.getObject('geoLocation').latitude,
-                    lng: $localStorage.getObject('geoLocation').longitude
-                }
-            }
-        }
-    })
     .filter('moment', function () {
         return function (input, momentFn /*, param1, param2, ...param n */) {
             var args = Array.prototype.slice.call(arguments, 2),
@@ -244,6 +231,24 @@ var app = angular.module('app', ['ionic','ngCordova'])
                     }
                 }
             })
+            .state('app.news', {
+                url: '/news',
+                views: {
+                    'news': {
+                        templateUrl: 'templates/news.html',
+                        controller: 'NewsCtrl'
+                    }
+                }
+            })
+            .state('app.single-news',{
+                url: '/single-news/:news',
+                views: {
+                    'news' :{
+                        templateUrl: 'templates/single.html',
+                        controller: 'SingleNewsCtrl'
+                    }
+                }
+            })
             .state('app.search', {
                 url: '/search',
                 views: {
@@ -318,7 +323,7 @@ var app = angular.module('app', ['ionic','ngCordova'])
             })
             ;
 
-        if (window.localStorage['logged']){
+        if (window.localStorage['started']){
             $urlRouterProvider.otherwise('/app/home');
         }else{
             $urlRouterProvider.otherwise('/start/home');

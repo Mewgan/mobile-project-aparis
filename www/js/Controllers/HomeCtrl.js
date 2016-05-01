@@ -1,5 +1,10 @@
 app.
-    controller('HomeCtrl',function($scope,$state,$ionicPopup) {
+    controller('MainCtrl',function($scope, $ionicSideMenuDelegate){
+        $scope.toggleLeftSideMenu = function() {
+            $ionicSideMenuDelegate.toggleLeft();
+        };
+    })
+    .controller('HomeCtrl',function($scope,$state,$ionicPopup) {
 
         $scope.locate = function(){
             $state.go('app.search-around-me',{query:'',radius:2000,date: ''});
@@ -72,10 +77,11 @@ app.
                 .success(function (response) {
                     $ionicLoading.hide();
                     $scope.isNothing = response.records.length;
-                    if (response.records.length != 10)$scope.loading = false;
+                    if (response.records.length != 6)$scope.loading = false;
                     for (var i = 0; i < response.records.length; i++) {
                         var event = response.records[i];
                         event.favorite = false;
+                        event.is_before = (moment(event.fields.date_start).isBefore(new Date()))?true:false;
                         if (typeof $localStorage.get('my_events_ids') !== 'undefined')
                             event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
                         $scope.results.push(event);
@@ -93,7 +99,7 @@ app.
                 });
         };
     })
-    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$localStorage,$state,$ionicPlatform,$http,$cordovaGeolocation,$geoLocation,$stateParams,$ionicPopup){
+    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$localStorage,$state,$ionicPlatform,$http,$geoLocation,$stateParams,$ionicPopup){
 
         $scope.results = [];
 
@@ -146,7 +152,6 @@ app.
             template: '<ion-spinner></ion-spinner>'
         });
 
-
         $scope.load = function() {
             var options = {
                 enableHighAccuracy: true,
@@ -165,12 +170,12 @@ app.
                     $http.get(url).success(function (response) {
                         $ionicLoading.hide();
                         $scope.isNothing = response.records.length;
-                        $geoLocation.setGeolocation(position.coords.latitude, position.coords.longitude);
                         google.maps.event.addDomListener(window, 'load', $scope.initialize(position.coords.latitude,position.coords.longitude));
-                        if(response.records.length != 10)$scope.loading= false;
+                        if(response.records.length != 6)$scope.loading= false;
                         for (var i = 0; i < response.records.length; i++) {
                             var event = response.records[i];
                             event.favorite = false;
+                            event.is_before = (moment(event.fields.date_start).isBefore(new Date()))?true:false;
                             if (typeof $localStorage.get('my_events_ids') !== 'undefined')
                                 event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
                             $scope.results.push(event);

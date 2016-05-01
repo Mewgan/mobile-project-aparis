@@ -10,15 +10,15 @@
                 on-refresh="refresh()">
         </ion-refresher>
         <ion-list class="event-list">
-            <div ng-if="events.length == 0" class="list">
+            <div ng-if="favorite.count() == 0" class="list">
                 <div class="card">
                     <div style="text-align:center;" class="item item-text-wrap">
                         Aucun favoris trouvé <i class="icon ion-sad-outline"></i>
                     </div>
                 </div>
             </div>
-            <ion-item class="list card" ng-repeat="event in events">
-                <div class="item item-avatar" ng-click="renderEvent(event)">
+            <ion-item class="list card" ng-class="event.is_before ? 'before' : 'after'" ng-repeat="event in favorite.all()">
+                <div class="item item-avatar" ng-click="favorite.show(event)">
                     <img  ng-if="event.fields.image_thumb" src="{{event.fields.image_thumb}}">
                     <img  ng-if="!event.fields.image_thumb" src="img/ionic.png">
                     <h2>{{event.fields.title}}</h2>
@@ -27,18 +27,27 @@
                 <div class="item item-body">
                     <img ng-if="event.fields.image" src="{{event.fields.image}}" alt="image" style="width:100%;"/>
                     <p>{{event.fields.description}}</p>
+                    <div class="row">
+                        <span class="col col-50">
+                            <ion-checkbox ng-model="event.done" ng-click="favorite.done($index)">Fait</ion-checkbox>
+                        </span>
+                        <span class="col col-50">
+                            <a ng-if="event.is_before" class="subdued done"><i class="icon ion-close"></i> Terminé</a>
+                            <a ng-if="!event.is_before" class="subdued to-come"><i class="icon ion-checkmark"></i> À venir</a>
+                        </span>
+                    </div>
                 </div>
                 <div class="item item-divider row links">
                     <div class="col col-50">
-                        <button class="button button-assertive" ng-click="deleteEvent($index)"><i class="icon ion-ios-trash"></i> Supprimer</button>
+                        <button class="button button-assertive" ng-click="favorite.remove($index)"><i class="icon ion-ios-trash"></i> Supprimer</button>
                     </div>
                     <div class="col col-50">
-                        <button class="button icon-right ion-chevron-right button-energized" ng-click="renderEvent(event)">Voir</button>
+                        <button class="button icon-right ion-chevron-right button-energized" ng-click="favorite.show(event)">Voir</button>
                     </div>
                 </div>
             </ion-item>
         </ion-list>
-        <ion-infinite-scroll ng-if="events.length > 0" on-infinite="loadEvents()" distance="1%"></ion-infinite-scroll>
+        <ion-infinite-scroll ng-if="favorite.count() > 0" on-infinite="loadEvents()" distance="1%"></ion-infinite-scroll>
     </ion-content>
-    <button ng-hide="events.length <= 10" ng-click="scrollTop()" class="icon ion-arrow-up-c scroll-to-top"></button>
+    <button ng-hide="favorite.count() <= 10" ng-click="scrollTop()" class="icon ion-arrow-up-c scroll-to-top"></button>
 </ion-view>
