@@ -1,27 +1,31 @@
 app.
-    controller('MainCtrl',function($scope, $ionicSideMenuDelegate){
-        $scope.toggleLeftSideMenu = function() {
+    controller('MainCtrl', function ($scope, $ionicSideMenuDelegate) {
+        // hamburger menu function
+        $scope.toggleLeftSideMenu = function () {
             $ionicSideMenuDelegate.toggleLeft();
         };
     })
-    .controller('HomeCtrl',function($scope,$state,$ionicPopup) {
+    .controller('HomeCtrl', function ($scope, $state, $ionicPopup,$localStorage,$ionicScrollDelegate) {
 
-        $scope.locate = function(){
-            $state.go('app.search-around-me',{query:'',radius:2000,date: ''});
+        $scope.renderEvent = function (event) {
+          $state.go('app.single', {event: angular.toJson(event)});
         };
 
-        $scope.disableTap = function(){
-            container = document.getElementsByClassName('pac-container');
-            // disable ionic data tab
-            angular.element(container).attr('data-tap-disabled', 'true');
-            // leave input field if google-address-entry is selected
-            angular.element(container).on("click", function(){
-                document.getElementById('searchBar').blur();
-            });
+        $scope.addToFavorite = function (event) {
+          $localStorage.addObject('my_events', event);
+          $localStorage.add('my_events_ids', event.recordid);
         };
 
-        $scope.search = function(query,radius,date){
-            if(typeof query === 'undefined' && typeof radius === 'undefined' && typeof date === 'undefined')
+        $scope.scrollTop = function () {
+          $ionicScrollDelegate.scrollTop();
+        };
+
+        $scope.locate = function () {
+            $state.go('app.search-around-me', {query: '', radius: 2000, date: ''});
+        };
+
+        $scope.search = function (query, radius, date) {
+            if (typeof query === 'undefined' && typeof radius === 'undefined' && typeof date === 'undefined')
                 $ionicPopup.alert({
                     title: 'Information',
                     template: 'Veuillez renseigner au moins un champ'
@@ -35,7 +39,7 @@ app.
         };
 
     })
-    .controller('SearchCtrl',function($http,$scope,$ionicLoading,$state,$stateParams,$ionicPopup,$ionicScrollDelegate,$localStorage){
+    .controller('SearchCtrl', function ($http, $scope, $ionicLoading, $state, $stateParams, $ionicPopup, $localStorage) {
 
         $scope.results = [];
 
@@ -45,35 +49,23 @@ app.
 
         $scope.map = false;
 
-        $scope.renderEvent = function(event){
-            $state.go('app.single',{event:angular.toJson(event)});
-        };
-
-        $scope.addToFavorite = function(event){
-            $localStorage.addObject('my_events',event);
-            $localStorage.add('my_events_ids',event.recordid);
-        };
-
-        $scope.scrollTop = function() {
-            $ionicScrollDelegate.scrollTop();
-        };
-
         $ionicLoading.show({
             template: '<ion-spinner></ion-spinner>'
         });
         var uri = "";
         var isQuery = false;
-        if($stateParams.query !== '') {
-            uri += $stateParams.query;isQuery = true;
+        if ($stateParams.query !== '') {
+            uri += $stateParams.query;
+            isQuery = true;
         }
-        if($stateParams.date !== '')
-            if(isQuery)
-                uri += " AND date_start >="+moment($stateParams.date).format('DD/MM/YYYY');
+        if ($stateParams.date !== '')
+            if (isQuery)
+                uri += " AND date_start >=" + moment($stateParams.date).format('DD/MM/YYYY');
             else
-                uri += "date_start >="+moment($stateParams.date).format('DD/MM/YYYY');
+                uri += "date_start >=" + moment($stateParams.date).format('DD/MM/YYYY');
 
-        $scope.load = function() {
-            $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&rows=6&start=" + $scope.results.length+"&q="+uri)
+        $scope.load = function () {
+            $http.get("http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&facet=date_end&sort=updated_at&rows=6&start=" + $scope.results.length + "&q=" + uri)
                 .success(function (response) {
                     $ionicLoading.hide();
                     $scope.isNothing = response.records.length;
@@ -81,7 +73,7 @@ app.
                     for (var i = 0; i < response.records.length; i++) {
                         var event = response.records[i];
                         event.favorite = false;
-                        event.is_before = (moment(event.fields.date_start).isBefore(new Date()))?true:false;
+                        event.is_before = (moment(event.fields.date_start).isBefore(new Date())) ? true : false;
                         if (typeof $localStorage.get('my_events_ids') !== 'undefined')
                             event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
                         $scope.results.push(event);
@@ -99,7 +91,7 @@ app.
                 });
         };
     })
-    .controller('GeoCtrl',function($scope,$ionicScrollDelegate,$ionicLoading,$localStorage,$state,$ionicPlatform,$http,$cordovaGeolocation,$stateParams,$ionicPopup){
+    .controller('GeoCtrl', function ($scope, $ionicLoading, $localStorage, $state, $ionicPlatform, $http, $cordovaGeolocation, $stateParams, $ionicPopup) {
 
         $scope.results = [];
 
@@ -109,30 +101,15 @@ app.
 
         $scope.isNothing = 1;
 
-        $scope.renderEvent = function(event){
-            $state.go('app.single',{event:angular.toJson(event)});
-        };
-
-        $scope.addToFavorite = function(event){
-            $localStorage.addObject('my_events',event);
-            $localStorage.add('my_events_ids',event.recordid);
-        };
-
-        $scope.scrollTop = function() {
-            $ionicScrollDelegate.scrollTop();
-        };
-        $scope.initialize = function(lat,lng) {
-            var myLatlng = new google.maps.LatLng(lat,lng);
-
+        // map initialization with position marker and radius
+        $scope.initialize = function (lat, lng) {
+            var myLatlng = new google.maps.LatLng(lat, lng);
             var mapOptions = {
                 center: myLatlng,
                 zoom: 12,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var map = new google.maps.Map(document.getElementById("carte"),
-                mapOptions);
-
-
+            var map = new google.maps.Map(document.getElementById("carte"), mapOptions);
             var marker = new google.maps.Marker({
                 position: myLatlng,
                 map: map
@@ -148,11 +125,12 @@ app.
                 radius: parseInt($stateParams.radius)
             });
         };
+
         $ionicLoading.show({
             template: '<ion-spinner></ion-spinner>'
         });
 
-        $scope.load = function() {
+        $scope.load = function () {
             var options = {
                 enableHighAccuracy: true,
                 timeout: 5000,
@@ -160,22 +138,23 @@ app.
             };
             var date = moment().format('DD/MM/YYYY');
             var query = '';
-            if(typeof $stateParams.date !== '' && $stateParams.date !== '')
+            if (typeof $stateParams.date !== '' && $stateParams.date !== '')
                 date = moment($stateParams.date).format('DD/MM/YYYY');
-            if(typeof $stateParams.query !== 'undefined' && $stateParams.query !== '')
-                query = $stateParams.query+" AND ";
+            if (typeof $stateParams.query !== 'undefined' && $stateParams.query !== '')
+                query = $stateParams.query + " AND ";
             $ionicPlatform.ready(function () {
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    var url = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&sort=updated_at&facet=date_end&rows=6&start=" + $scope.results.length + "&geofilter.distance=" + position.coords.latitude + "," + position.coords.longitude + ","+$stateParams.radius+"&q="+query+"date_start >="+date;
+                    var url = "http://opendata.paris.fr/api/records/1.0/search/?dataset=evenements-a-paris&facet=updated_at&facet=tags&facet=department&facet=region&facet=city&facet=date_start&sort=updated_at&facet=date_end&rows=6&start=" + $scope.results.length + "&geofilter.distance=" + position.coords.latitude + "," + position.coords.longitude + "," + $stateParams.radius + "&q=" + query + "date_start >=" + date;
                     $http.get(url).success(function (response) {
                         $ionicLoading.hide();
                         $scope.isNothing = response.records.length;
-                        google.maps.event.addDomListener(window, 'load', $scope.initialize(position.coords.latitude,position.coords.longitude));
-                        if(response.records.length != 6)$scope.loading= false;
+                        // load map
+                        google.maps.event.addDomListener(window, 'load', $scope.initialize(position.coords.latitude, position.coords.longitude));
+                        if (response.records.length != 6)$scope.loading = false;
                         for (var i = 0; i < response.records.length; i++) {
                             var event = response.records[i];
                             event.favorite = false;
-                            event.is_before = (moment(event.fields.date_start).isBefore(new Date()))?true:false;
+                            event.is_before = (moment(event.fields.date_start).isBefore(new Date())) ? true : false;
                             if (typeof $localStorage.get('my_events_ids') !== 'undefined')
                                 event.favorite = $localStorage.get('my_events_ids').indexOf(response.records[i].recordid) >= 0;
                             $scope.results.push(event);

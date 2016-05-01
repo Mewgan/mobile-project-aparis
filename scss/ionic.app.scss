@@ -442,8 +442,17 @@ body{
     }
   }
   .news-single-page{
-    .article .description{
-      height: auto;
+    .article {
+      em{
+        width: 100%;
+      }
+      .description {
+        height: auto;
+        box-sizing: border-box;
+        width: initial;
+        color: #000000;
+        margin-top: 10px;
+      }
     }
   }
   .favorites-page{

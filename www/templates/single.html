@@ -14,15 +14,15 @@
                 <h1 ng-class="news.media[0].path ? 'has-image' : 'no-image'" ng-bind-html="(news.nom | html_entity_decode)"></h1>
             </div>
             <div class="row info" ng-show="news.created">
-                <em class="card"><i class="icon ion-calendar"></i>{{news.created | moment : 'format' : 'DD/MM/YY'}}</em>
+                <em class="card"><i class="icon ion-calendar"></i>Publié le {{news.created | moment : 'format' : 'DD/MM/YY'}}</em>
             </div>
             <div class="row info" ng-show="news.accessType">
-                <em ng-bind-html="(news.accessType | html_entity_decode)" class="card"></em>
+                <em class="card"><i class="icon ion-social-euro"></i><span ng-bind-html="(news.accessType | html_entity_decode)"></span></em>
             </div>
             <div class="row info" ng-show="news.adresse">
-                <em ng-bind-html="(news.adresse | html_entity_decode)" class="card"></em>
+                <em  class="card"><i class="icon ion-location"></i><span ng-bind-html="(news.adresse | html_entity_decode)"></span></em>
             </div>
-            <div class="row description" ng-show="news.description">
+            <div class="row description card" ng-show="news.description">
                 <p ng-bind-html="(news.description | html_entity_decode)"></p>
             </div>
         </div>

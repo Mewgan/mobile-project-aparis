@@ -10041,8 +10041,14 @@ body {
           margin: 0 auto; }
       body .event-page .article .reminder {
         margin: 0 auto; }
+  body .news-single-page .article em {
+    width: 100%; }
   body .news-single-page .article .description {
-    height: auto; }
+    height: auto;
+    box-sizing: border-box;
+    width: initial;
+    color: #000000;
+    margin-top: 10px; }
   body .favorites-page {
     background: #D55038; }
     body .favorites-page .event-list {
